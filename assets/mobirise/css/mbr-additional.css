@@ -521,7 +521,7 @@ a.text-black:focus,
 a.text-black.active {
   color: #000000 !important;
 }
-a[class*="text-"]:not(.nav-link):not(.dropdown-item):not([role]):not(.navbar-caption) {
+a[class*="text-"]:not(.nav-link):not(.dropdown-item):not([role]) {
   transition: 0.2s;
   position: relative;
   background-image: linear-gradient(currentColor 50%, currentColor 50%);
