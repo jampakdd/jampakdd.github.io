@@ -56,10 +56,10 @@
       }
     ],
     "uniqCompNum": 47,
-    "versionPublish": "5.2.0",
+    "versionPublish": "5.9.17",
     "imageResize": false,
     "screenshot": "screenshot.png",
-    "favicon": "@PROJECT_PATH@/assets/images/marshmallowdead-1-32x32-1.png",
+    "favicon": "@PROJECT_PATH@/assets/images/marshmallowdead-1-32x32_1.png",
     "mbrsiteDomain": "5kt0qxdt7w",
     "usedWebp": false,
     "robotsSwitcher": false,
