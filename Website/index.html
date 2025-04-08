@@ -1,0 +1,1418 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDK Media</title>
+    <link rel="icon" href="SDKMedia_Logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            color: #333;
+            background-color: #fff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            body.dark-mode {
+                background-color: #121212;
+                color: #eee;
+            }
+
+                body.dark-mode .exp-left img {
+                    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+                }
+
+                body.dark-mode header {
+                    background-color: #1e1e1e;
+                    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
+                }
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            height: 100px;
+        }
+
+            header.shrink {
+                height: 60px;
+            }
+
+                header.shrink .logo-img {
+                    height: 36px;
+                }
+
+                header.shrink .logo-title {
+                    font-size: 1.2rem;
+                }
+
+                header.shrink .text-block span {
+                    font-size: 1.2rem;
+                }
+
+                header.shrink .social-icon-group img {
+                    width: 24px !important;
+                    height: 24px !important;
+                }
+
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #338ac1;
+            font-weight: bold;
+        }
+
+        .logo-img {
+            height: 60px;
+            transition: height 0.3s ease;
+        }
+
+        .logo-img,
+        .logo-title,
+        .logo-email {
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.2s ease;
+            transform-origin: center;
+        }
+
+            .logo-img:hover,
+            .logo-title:hover,
+            .logo-email:hover {
+                animation: jiggle 0.4s ease-in-out;
+            }
+
+            .logo-img:active,
+            .logo-title:active,
+            .logo-email:active {
+                animation: pop 0.3s ease-in-out;
+            }
+
+        .logo-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #338ac1;
+            cursor: pointer;
+            display: inline-block;
+            transition: font-size 0.3s ease, transform 0.2s ease;
+            transform-origin: center center;
+            text-align: center;
+        }
+
+        /* Text Block */
+        .text-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Or center if that feels better visually */
+        }
+
+            .text-block span {
+                font-size: 2rem;
+                transition: font-size 0.3s ease;
+            }
+
+            .text-block .subtitle {
+                font-size: 0.875rem;
+                font-weight: normal;
+                color: #555;
+            }
+
+        /* Navigation */
+        nav,
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+
+            nav a,
+            .main-nav a {
+                margin-left: 2rem;
+                text-decoration: none;
+                color: #338ac1;
+                font-weight: bold;
+                font-size: 1.25rem;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+
+                nav a:hover,
+                .main-nav a:hover {
+                    animation: jiggle 0.4s ease-in-out;
+                }
+
+                nav a:active,
+                .main-nav a:active {
+                    animation: pop 0.3s ease-in-out;
+                }
+
+        /* Social Media */
+        .nav-social {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #338ac1;
+            text-align: center;
+            width: 48px;
+        }
+
+            .social-item a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+        .social-icon-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .social-icon-group img {
+                width: 32px !important;
+                height: 32px !important;
+            }
+
+            .social-icon-group a img,
+            .handle {
+                display: inline-block;
+                cursor: pointer;
+            }
+
+                .social-icon-group a:hover img,
+                .handle:hover {
+                    animation: jiggle 0.4s ease-in-out;
+                }
+
+                .social-icon-group a:active img,
+                .handle:active {
+                    animation: pop 0.3s ease-in-out;
+                }
+
+        .handle {
+            font-size: 0.6rem;
+            font-weight: bold;
+            color: #338ac1;
+            text-align: center;
+            margin-top: 0.25rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 2rem 2rem 2rem;
+            min-height: 100vh;
+        }
+
+            section h1 {
+                color: #338ac1;
+                font-size: 2.5rem;
+            }
+
+        #Projects {
+            background: #f9f9f9;
+            padding-top: 120px;
+        }
+
+        #About,
+        #Contact,
+        #Demo {
+            padding-top: 40px;
+        }
+
+        #About {
+            background: #e9e9e9;
+        }
+
+        #Contact {
+            background: #d9d9d9;
+            padding-bottom: 1rem;
+            min-height: unset;
+        }
+
+        #Demo {
+            background: #c9c9c9;
+        }
+
+        body.dark-mode #Projects {
+            background-color: #1a1a1a;
+        }
+
+        body.dark-mode #About {
+            background-color: #222222;
+        }
+
+        body.dark-mode #Contact {
+            background-color: #2a2a2a;
+        }
+
+        body.dark-mode #Demo {
+            background-color: #333333;
+        }
+
+        /* Projects */
+        .projects-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .projects-row {
+            display: flex;
+            gap: 1rem;
+            padding: 2rem 0;
+        }
+
+        .exp-left img {
+            width: 360px;
+            height: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        .exp-middle {
+            flex: 1;
+        }
+
+        .job-title {
+            font-weight: bold;
+            color: #338ac1;
+            font-size: 1.5rem;
+        }
+
+        .company {
+            font-weight: bold;
+        }
+
+        .project {
+            font-weight: normal;
+        }
+
+        .blurb {
+            margin: 0.5rem 0;
+        }
+
+        .platforms {
+            color: #777;
+            font-size: 0.875rem;
+        }
+
+        .exp-right {
+            text-align: right;
+        }
+
+            .exp-right .date {
+                font-weight: bold;
+            }
+
+            .exp-right img {
+                margin-top: 0.5rem;
+                width: 120px;
+                height: auto;
+            }
+
+        /* Dark Mode Bulb */
+        .theme-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3000;
+        }
+
+        .bulb {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #ccc;
+            box-shadow: 0 0 4px #ccc;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .bulb {
+            background-color: #ffd700;
+            box-shadow: 0 0 8px #ffd700, 0 0 16px #ffd700;
+        }
+
+        .bulb::before {
+            content: '🌙'; /* default: light mode */
+            font-size: 14px;
+            display: block;
+            text-align: center;
+            line-height: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        body.dark-mode .bulb::before {
+            content: '☀️'; /* moon for dark mode */
+        }
+
+        /* Jiggle & Pop */
+        @keyframes jiggle {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(2deg);
+            }
+
+            50% {
+                transform: rotate(-2deg);
+            }
+
+            75% {
+                transform: rotate(2deg);
+            }
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Email Copy */
+        .email-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .copy-confirm {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-65%) translateY(30px) rotate(0deg);
+            font-size: 0.75rem;
+            font-weight: normal;
+            color: #aaa;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease, transform 0.5s ease;
+            white-space: nowrap;
+        }
+
+            .copy-confirm.visible {
+                opacity: 1;
+                transform: translateX(-65%) translateY(35px) rotate(-15deg);
+                transition: opacity 0.1s ease, transform 0.5s ease;
+            }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-start;
+            margin-top: 2rem;
+        }
+
+        .about-left {
+            flex: 0 0 200px;
+        }
+
+        .about-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-right {
+            flex: 1;
+        }
+
+        .about-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #338ac1;
+            margin-bottom: 0.25rem;
+        }
+
+        .about-title {
+            font-size: 1.1rem;
+            font-weight: normal;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .about-bio {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .resume-section {
+            margin-top: 2rem;
+        }
+
+        .resume-link {
+            color: #338ac1;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+            .resume-link:hover {
+                animation: jiggle 0.4s ease-in-out;
+            }
+
+            .resume-link:active {
+                animation: pop 0.3s ease-in-out;
+            }
+
+        .resume-viewer {
+            margin-top: 2rem;
+            width: 100%;
+            height: 1000px; /* Increased from 600px */
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+            .resume-viewer iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+
+        .contact-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-top: 1.5rem;
+        }
+
+            .contact-content a {
+                color: #338ac1;
+                text-decoration: none;
+                font-weight: bold;
+                transition: color 0.2s ease;
+            }
+
+                .contact-content a:hover {
+                    text-decoration: underline;
+                }
+
+        .contact-socials {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .education-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+            align-items: flex-start;
+        }
+
+        .education-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+            .education-text h3 {
+                color: #338ac1;
+                margin-bottom: 0.5rem;
+                font-size: 1.5rem;
+            }
+
+            .education-text p {
+                margin: 0.4rem 0;
+                line-height: 1.6;
+            }
+
+            .education-text ul {
+                padding-left: 1.2rem;
+                margin: 0.5rem 0 1rem;
+            }
+
+            .education-text li {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+        .education-logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .video-thumbnail {
+            width: 360px;
+            height: auto;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+            .video-thumbnail:hover {
+                transform: scale(1.03);
+            }
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 5000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            align-items: center;
+            justify-content: center;
+        }
+
+            .video-modal.active {
+                display: flex;
+            }
+
+        .video-content {
+            position: relative;
+        }
+
+            .video-content iframe {
+                max-width: 90vw;
+                max-height: 80vh;
+            }
+
+        .close-button {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #fff;
+            color: #000;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 0.25rem 0.6rem;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .reticle-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 3.5rem; /* space to the left of the bulb */
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3000;
+        }
+
+        .reticle-icon {
+            font-size: 14px;
+            transition: transform 0.2s ease;
+        }
+
+        .reticle-toggle:hover .reticle-icon {
+            transform: scale(1.2);
+        }
+
+        .reticle {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            --base-offset: 10px; /* NEW: define default distance from center */
+        }
+
+            .reticle.returning .reticle-line {
+                transition: transform 0.4s ease;
+            }
+
+        .reticle-dot {
+            width: 5px; /* smaller */
+            height: 5px;
+            background: white;
+            border: 1px solid black; /* outline */
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+        }
+
+        .reticle-line {
+            position: absolute;
+            background: white;
+            border: 1px solid black; /* outline */
+            width: 4px;
+            height: 6px; /* half the length */
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            transition: transform 0.07s ease-out, opacity 0.2s ease;
+        }
+
+            /* Default spacing using --base-offset */
+            .reticle-line.top {
+                transform: translate(-50%, calc(-50% - var(--offset, var(--base-offset))));
+            }
+
+            .reticle-line.bottom {
+                transform: translate(-50%, calc(-50% + var(--offset, var(--base-offset))));
+            }
+
+            .reticle-line.left {
+                transform: translate(calc(-50% - var(--offset, var(--base-offset))), -50%) rotate(90deg);
+            }
+
+            .reticle-line.right {
+                transform: translate(calc(-50% + var(--offset, var(--base-offset))), -50%) rotate(90deg);
+            }
+
+        /* Expanded spacing using --offset */
+        .reticle.expand .top {
+            transform: translate(-50%, calc(-50% - var(--offset, 32px)));
+        }
+
+        .reticle.expand .bottom {
+            transform: translate(-50%, calc(-50% + var(--offset, 32px)));
+        }
+
+        .reticle.expand .left {
+            transform: translate(calc(-50% - var(--offset, 32px)), -50%) rotate(90deg);
+        }
+
+        .reticle.expand .right {
+            transform: translate(calc(-50% + var(--offset, 32px)), -50%) rotate(90deg);
+        }
+
+        .shot-mark {
+            width: 100px;
+            height: 100px;
+            background: black;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 5000;
+            opacity: 1;
+            transition: opacity 9s linear;
+        }
+
+        body.reticle-on {
+            cursor: none;
+        }
+
+        body.reticle-on button,
+        body.reticle-on a,
+        body.reticle-on input,
+        body.reticle-on textarea,
+        body.reticle-on select {
+            cursor: none;
+        }
+
+            body.reticle-on * {
+                cursor: none !important;
+                user-select: none;
+            }
+
+        body:not(.reticle-on) {
+            cursor: auto;
+        }
+
+            body:not(.reticle-on) * {
+                user-select: text;
+                cursor: auto;
+            }
+
+
+        .reticle .interact-x {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .interact-x-line {
+            position: absolute;
+            width: 2px;
+            height: 6px;
+            background-color: red;
+            opacity: 1;
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+        }
+
+            .interact-x-line.tl {
+                transform: translate(-50%, -50%) rotate(45deg) translateY(-8px);
+            }
+
+            .interact-x-line.tr {
+                transform: translate(-50%, -50%) rotate(135deg) translateY(-8px);
+            }
+
+            .interact-x-line.br {
+                transform: translate(-50%, -50%) rotate(225deg) translateY(-8px);
+            }
+
+            .interact-x-line.bl {
+                transform: translate(-50%, -50%) rotate(315deg) translateY(-8px);
+            }
+
+        .reticle-toggle::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .reticle-toggle:hover::after {
+            opacity: 1;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="reticle">
+        <div class="reticle-dot"></div>
+        <div class="reticle-line top"></div>
+        <div class="reticle-line right"></div>
+        <div class="reticle-line bottom"></div>
+        <div class="reticle-line left"></div>
+    </div>
+
+    <header>
+        <!-- Left: Logo -->
+        <div class="logo">
+            <img src="SDKMedia_Logo.png" alt="Skylar Kelley Logo" class="logo-img" onclick="document.getElementById('Projects').scrollIntoView({ behavior: 'smooth' });">
+
+            <div class="text-block">
+                <div class="logo-title" onclick="document.getElementById('About').scrollIntoView({ behavior: 'smooth' });">
+                    Skylar Kelley
+                </div>
+
+                <!-- Wrapper to position relative for floating feedback -->
+                <div class="email-container">
+                    <div class="subtitle logo-email" onclick="copyEmail()">SkylarKelley@gmail.com</div>
+                    <div id="copy-confirm" class="copy-confirm">Copied!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center: Social Media -->
+        <div class="nav-social">
+            <div class="social-item">
+                <div class="social-icon-group">
+                    <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" title="LinkedIn">
+                        <img src="LinkedIn_Logo.png" alt="LinkedIn" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" class="handle">@skylarkelley</a>
+                </div>
+            </div>
+            <div class="social-item">
+                <div class="social-icon-group">
+                    <a href="https://www.instagram.com/sky_sdk/" target="_blank" title="Instagram">
+                        <img src="Instagram_Logo.png" alt="Instagram" />
+                    </a>
+                    <a href="https://www.instagram.com/sky_sdk/" target="_blank" class="handle">@sky_sdk</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Navigation Links -->
+        <nav class="main-nav">
+            <a href="#Projects">Projects</a>
+            <a href="#About">About</a>
+            <a href="#Contact">Contact</a>
+            <a href="#Demo">Demo</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="Projects">
+            <h1>Projects</h1>
+            <div class="Projects-table">
+                <!-- Projects entries go here -->
+                <!-- Notorious Studios -->
+                <div class="projects-row">
+                    <div class="exp-left">
+                        <img src="LegacySteelAndSorcery.png"
+                             alt="Legacy Steel and Sorcery"
+                             class="video-thumbnail"
+                             onclick="openVideoModal('https://www.youtube.com/embed/jfOEYbcENBA')">
+                    </div>
+
+                    <div class="exp-middle">
+                        <div class="job-title">Combat Designer - Contract</div>
+                        <div><span class="company">Notorious Studios</span>: <span class="project">Legacy Steel and Sorcery</span></div>
+                        <div class="blurb">Delivering iconic combat identity for an adrenaline-fueled 3rd person action PvPvE Extraction RPG.</div>
+                        <div class="platforms">Platforms: PC - Steam</div>
+                    </div>
+                    <div class="exp-right">
+                        <div class="date">May. '24 - Present</div>
+                        <img src="Notorious_Logo.png" alt="Notorious Logo">
+                    </div>
+                </div>
+
+                <!-- Activision Blizzard -->
+                <div class="projects-row">
+                    <div class="exp-left">
+                        <img src="Odyssey_22-24.png" alt="Odyssey">
+                    </div>
+                    <div class="exp-middle">
+                        <div class="job-title">Combat Designer & Gameplay Scripter</div>
+                        <div><span class="company">Activision Blizzard</span>: <span class="project">Unannounced Survival Game - Odyssey</span></div>
+                        <div class="blurb">Developing industry-leading moment-to-moment gameplay.</div>
+                        <div class="platforms">Platforms: Canceled Console & PC</div>
+                    </div>
+                    <div class="exp-right">
+                        <div class="date">Nov. '22 - Apr. '24</div>
+                        <img src="Blizzard_Logo.png" alt="Blizzard Logo">
+                    </div>
+                </div>
+
+                <!-- Bladework Games -->
+                <div class="projects-row">
+                    <div class="exp-left">
+                        <img src="BladeworkGames_21-22.png" alt="Bladework Games">
+                    </div>
+                    <div class="exp-middle">
+                        <div class="job-title">Game Designer & Programmer</div>
+                        <div><span class="company">Bladework Games</span>: <span class="project">Unannounced Action Combat Game</span></div>
+                        <div class="blurb">Prototyping and implementing the core game loop and cutting-edge moment-to-moment action combat.</div>
+                        <div class="platforms">Platform: Unreleased Console & PC</div>
+                    </div>
+                    <div class="exp-right">
+                        <div class="date">Mar. '21 - Nov. '22</div>
+                        <img src="Bladework_Logo.png" alt="Bladework Logo">
+                    </div>
+                </div>
+
+                <!-- Detour Bus -->
+                <div class="projects-row">
+                    <div class="exp-left">
+                        <img src="DetourBus_20-21.png"
+                             alt="Detour Bus"
+                             class="video-thumbnail"
+                             onclick="openVideoModal('https://www.youtube.com/embed/SMjK3hcUg2Q')">
+                    </div>
+
+                    <div class="exp-middle">
+                        <div class="job-title">Lead Game Designer & Gameplay Scripter</div>
+                        <div><span class="company">Detour Bus</span>: <span class="project">Detour Bus</span></div>
+                        <div class="blurb">Take on the challenges of a nostalgic and wacky VR road trip!</div>
+                        <div class="platforms">Platforms: PC - Steam VR, Meta Quest</div>
+                    </div>
+                    <div class="exp-right">
+                        <div class="date">Apr. '20 - Mar. '21</div>
+                    </div>
+                </div>
+
+                <!-- Banana Bird Studios -->
+                <div class="projects-row">
+                    <div class="exp-left">
+                        <img src="Beasts_19-20.png"
+                             alt="Beasts of Maravilla Island"
+                             class="video-thumbnail"
+                             onclick="openVideoModal('https://www.youtube.com/embed/NjjEnLDsRhE')">
+                    </div>
+                    <div class="exp-middle">
+                        <div class="job-title">Lead Producer & Unity Developer</div>
+                        <div><span class="company">Banana Bird Studios</span>: <span class="project">Beasts of Maravilla Island</span></div>
+                        <div class="blurb">Discover the wonder of Maravilla Island in this magical wildlife photography game.</div>
+                        <div class="platforms">Platforms: Nintendo Switch, Xbox, Playstation, Steam</div>
+                    </div>
+                    <div class="exp-right">
+                        <div class="date">Aug. '19 - Sep. '20</div>
+                        <img src="BananaBirdStudios_Logo.png" alt="Banana Bird Studios Logo">
+                    </div>
+                </div>
+
+                <!-- Treyarch -->
+                <div class="projects-row">
+                    <div class="exp-left">
+                        <img src="Treyarch_19-19.png" alt="Call of Duty: Black Ops 4">
+                    </div>
+                    <div class="exp-middle">
+                        <div class="job-title">Game Designer & Gameplay Scripter - Intern</div>
+                        <div><span class="company">Treyarch</span>: <span class="project">Call of Duty: Black Ops 4</span></div>
+                        <div class="blurb">AAA Design Documentation, Collaboration, Prototyping, and Implementation using proprietary software and programming languages learned as needed.</div>
+                        <div class="platforms">Platforms: PC, Xbox, PS4</div>
+                    </div>
+                    <div class="exp-right">
+                        <div class="date">May '19 - Aug. '19</div>
+                        <img src="Treyarch_Logo.png" alt="Treyarch Logo">
+                    </div>
+                </div>
+
+                <!-- Plasticity -->
+                <div class="projects-row">
+                    <div class="exp-left">
+                        <img src="Plasticity_19-19.png"
+                             alt="Plasticity"
+                             class="video-thumbnail"
+                             onclick="openVideoModal('https://www.youtube.com/embed/iDxRe_7rUQE')">
+                    </div>
+                    <div class="exp-middle">
+                        <div class="job-title">3D Environment Artist & Unity Developer</div>
+                        <div><span class="company">Plasticity</span>: <span class="project">Plasticity</span></div>
+                        <div class="blurb">Responsible for background level art throughout 70% of the game and assisted the development of 2 minor scripted sequences.</div>
+                        <div class="platforms">Platforms: PC - Steam</div>
+                    </div>
+                    <div class="exp-right">
+                        <div class="date">Jan. '19 - Aug. '19</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="About">
+            <h1>About</h1>
+            <div class="about-content">
+                <div class="about-left">
+                    <img src="SkylarKelley_Headshot.png" alt="Skylar Kelley" class="about-image">
+                </div>
+                <div class="about-right">
+                    <h2 class="about-name">Skylar Kelley</h2>
+                    <h3 class="about-title">Combat Designer / Game Designer / CEO</h3>
+                    <p class="about-bio">
+                        Skylar Kelley, also known as Sky, is a passionate Game Designer and Developer in his mid-20s with a broad range of interests — from psychology and engineering to art, history, and beyond. As a <strong>Combat Designer</strong>, Sky's mission is to deliver <strong>memorable</strong>, <strong>impactful</strong>, and <strong>industry-leading moment-to-moment experiences</strong> that resonate with players.
+                    </p>
+                    <p class="about-bio">
+                        Sky thrives at the intersection of <strong>technical design</strong>, <strong>feel-driven gameplay systems</strong>, and <strong>cross-discipline collaboration</strong> — working alongside top-tier <strong>engineers, designers, and artists</strong> to build unforgettable combat.
+                    </p>
+                    <p class="about-bio">
+                        Skylar’s design philosophy is rooted in <strong>rapid prototyping in engine</strong>, using his <strong>programming experience</strong> to find and follow fun fast. He believes in testing early, <strong>iterating with player feedback</strong>, and staying relentlessly focused on <strong>player experience</strong> to achieve tight, responsive, and satisfying gameplay.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Education Block -->
+            <div class="education-section">
+                <div class="education-text">
+                    <h3>Education</h3>
+                    <p><strong>Aug ’17 – May ’21</strong></p>
+                    <p><strong>University of Southern California</strong>: Los Angeles, CA</p>
+                    <p><em>Princeton Review’s #1 rated game design program</em></p>
+                    <p>
+                        <strong>BA: Interactive Media & Games Design</strong> – School of Cinematic Arts<br />
+                        Overall GPA: 3.52 <br />
+                        Applied Work GPA: 3.93
+                    </p>
+                    <ul>
+                        <li>Design Implementation & Theory, Documentation, Communication</li>
+                        <li>Pitching, Critique, Iteration, Collaboration</li>
+                        <li>Theme Park Design, Cinematography, Film Theory</li>
+                    </ul>
+                    <p><strong>Minor: Video Game Programming</strong></p>
+                    <ul>
+                        <li>C++, C#, Java, Algorithm Design, Vector Math, Physics, Data Management</li>
+                    </ul>
+                </div>
+                <div class="education-logo">
+                    <img src="USC_Logo.png" alt="USC Logo">
+                </div>
+            </div>
+
+            <!-- Resume Block -->
+            <div class="resume-section">
+                <h3>Resume</h3>
+                <p><a href="Skylar Kelley Game Design Resume 2025 Spring.pdf" target="_blank" class="resume-link">Download Resume (PDF)</a></p>
+            </div>
+            <div class="resume-viewer">
+                <iframe src="Skylar Kelley Game Design Resume 2025 Spring.pdf" frameborder="0"></iframe>
+            </div>
+        </section>
+
+
+        <section id="Contact">
+            <h1>Contact</h1>
+            <div class="contact-content">
+                <p><strong>Phone:</strong> <a href="tel:+19497017209">(949)-701-7209</a></p>
+                <p><strong>Email:</strong> <a href="mailto:SkylarKelley@gmail.com">SkylarKelley@gmail.com</a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/skylarkelley" target="_blank">linkedin.com/in/skylarkelley</a></p>
+                <p><strong>Studio Email:</strong> <a href="mailto:SDKMediaContact@gmail.com">SDKMediaContact@gmail.com</a></p>
+                <p><strong>Currently Located in:</strong> Southern California</p>
+            </div>
+
+            <div class="contact-socials">
+                <div class="social-item">
+                    <div class="social-icon-group">
+                        <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" title="LinkedIn">
+                            <img src="LinkedIn_Logo.png" alt="LinkedIn" />
+                        </a>
+                        <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" class="handle">@skylarkelley</a>
+                    </div>
+                </div>
+                <div class="social-item">
+                    <div class="social-icon-group">
+                        <a href="https://www.instagram.com/sky_sdk/" target="_blank" title="Instagram">
+                            <img src="Instagram_Logo.png" alt="Instagram" />
+                        </a>
+                        <a href="https://www.instagram.com/sky_sdk/" target="_blank" class="handle">@sky_sdk</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="Demo">
+            <h1>Demo</h1>
+            <p>This section is currently a work in progress. Stay tuned for future updates showcasing live combat and gameplay samples.</p>
+        </section>
+
+    </main>
+
+    <div id="videoModal" class="video-modal" onclick="closeVideoModal()">
+        <div class="video-content" onclick="event.stopPropagation();">
+            <iframe id="videoFrame" width="800" height="450" frameborder="0" allowfullscreen></iframe>
+            <span class="close-button" onclick="closeVideoModal()">×</span>
+        </div>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Reticle" role="button">
+        <div class="bulb"></div>
+    </button>
+
+    <div class="reticle-toggle" onclick="toggleReticle()" title="Toggle Reticle" aria-label="Toggle Reticle" role="button">
+        <div class="reticle-icon">🎯</div>
+    </div>
+
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop && scrollTop > 50) {
+                // Scrolling down
+                header.classList.add('shrink');
+            } else {
+                // Scrolling up or near top
+                header.classList.remove('shrink');
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        function copyEmail() {
+            const email = "SkylarKelley@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const confirm = document.getElementById("copy-confirm");
+                confirm.classList.add("visible");
+                setTimeout(() => {
+                    confirm.classList.remove("visible");
+                }, 1500);
+            }).catch(err => {
+                console.error("Failed to copy email:", err);
+            });
+        }
+
+        function openVideoModal(url) {
+            const modal = document.getElementById('videoModal');
+            const frame = document.getElementById('videoFrame');
+            frame.src = url + "?autoplay=1";
+            modal.classList.add('active');
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const frame = document.getElementById('videoFrame');
+            frame.src = "";
+            modal.classList.remove('active');
+        }
+
+        const reticle = document.querySelector('.reticle');
+        let mouseX = 0;
+        let mouseY = 0;
+        let offset = 16;
+        const baseOffset = parseFloat(getComputedStyle(reticle).getPropertyValue('--base-offset')) || 10;
+        const maxOffset = 128;
+        const growthStep = 1;
+        const growthRate = 65;
+        const pauseDuration = 200;
+        const maxRotation = 10; // ⬅️ Limit for rotation in degrees
+
+        let holdInterval = null;
+        let shrinkPauseUntil = 0;
+        let currentRotation = 0;
+
+        let recoilX = 0;
+        let recoilY = 0;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Apply reticle transform: position + rotation
+        function updateReticleTransform() {
+            const finalX = mouseX + recoilX;
+            const finalY = mouseY + recoilY;
+            reticle.style.top = `${finalY}px`;
+            reticle.style.left = `${finalX}px`;
+            reticle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+            requestAnimationFrame(updateReticleTransform);
+        }
+
+        // Fire one "shot" of reticle – grow if possible, always pop
+        function fireReticleShot() {
+            if (offset < maxOffset) {
+                offset = Math.min(offset + growthStep, maxOffset);
+                reticle.style.setProperty('--offset', `${offset}px`);
+            }
+
+            // Always apply a small rotational "pop"
+            const rotationBurst = (Math.random() - 0.5) * 10; // ±5 degrees
+            currentRotation += rotationBurst;
+            currentRotation = Math.max(-maxRotation, Math.min(maxRotation, currentRotation));
+
+            // Leave a shot mark on the page
+            spawnShotMark(mouseX + recoilX, mouseY + recoilY);
+
+            // ➕ Add subtle recoil movement (reticle crawl)
+            const recoilStep = 1.25;
+            recoilX += (Math.random() - 0.5) * recoilStep;
+            recoilY += -Math.abs(Math.random()) * recoilStep; // bias upward
+
+            // Pause shrinking
+            shrinkPauseUntil = Date.now() + pauseDuration;
+        }
+
+        // Mouse down initiates shots
+        document.addEventListener('mousedown', () => {
+            if (!reticleEnabled) return;
+
+            clearInterval(holdInterval);
+            fireReticleShot();
+            spawnInteractX();
+
+            holdInterval = setInterval(() => {
+                fireReticleShot();
+            }, growthRate);
+        });
+
+        document.addEventListener('mouseup', () => {
+            clearInterval(holdInterval);
+        });
+
+        // Smoothly shrink and rotate back to center
+        function smoothShrink() {
+            const now = Date.now();
+
+            if (now >= shrinkPauseUntil) {
+                // Shrink offset
+                if (offset > baseOffset) {
+                    offset -= (offset - baseOffset) * 0.1;
+                    if (Math.abs(offset - baseOffset) < 0.5) {
+                        offset = baseOffset;
+                    }
+                    reticle.style.setProperty('--offset', `${offset}px`);
+                }
+
+                // Smoothly decay rotation to 0
+                if (Math.abs(currentRotation) > 0.1) {
+                    currentRotation -= currentRotation * 0.1;
+                } else {
+                    currentRotation = 0;
+                }
+
+                // Ease recoil back toward center
+                recoilX -= recoilX * 0.1;
+                recoilY -= recoilY * 0.1;
+            }
+
+            requestAnimationFrame(smoothShrink);
+        }
+
+        // Start animation loops
+        updateReticleTransform();
+        smoothShrink();
+        document.body.classList.add('reticle-on');
+
+        function spawnShotMark(x, y) {
+            const mark = document.createElement('div');
+            mark.classList.add('shot-mark');
+
+            // 🎯 Authorable bias center within reticle spread (percent inside radius circle)
+            const biasXPercent = 0.5;  // 0 = far left, 1 = far right
+            const biasYPercent = 0.65;  // 0 = top, 1 = bottom
+
+            const spreadRadius = offset;
+
+            // Convert bias % to offset from center
+            const biasX = (biasXPercent - 0.5) * 2 * spreadRadius;
+            const biasY = (biasYPercent - 0.5) * 2 * spreadRadius;
+
+            // Gaussian bias for central clustering
+            function gaussianRandom(mean = 0, stddev = 1) {
+                let u = 1 - Math.random();
+                let v = Math.random();
+                return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v) * stddev + mean;
+            }
+
+            // Combine Gaussian + Uniform noise
+            const gaussianWeight = 0.6; // 🎯 how dominant the bell curve is (0 = uniform only, 1 = gaussian only)
+            const uniformWeight = 1 - gaussianWeight;
+
+            const dx = gaussianRandom(biasX, spreadRadius * 0.25) * gaussianWeight
+                + (Math.random() * 2 - 1) * spreadRadius * uniformWeight;
+            const dy = gaussianRandom(biasY, spreadRadius * 0.25) * gaussianWeight
+                + (Math.random() * 2 - 1) * spreadRadius * uniformWeight;
+
+            // Final screen-space shot location
+            const finalX = x + dx;
+            const finalY = y + dy;
+
+            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const absoluteX = finalX + scrollLeft;
+            const absoluteY = finalY + scrollTop;
+
+            mark.style.position = 'absolute';
+            mark.style.left = `${absoluteX}px`;
+            mark.style.top = `${absoluteY}px`;
+
+            // 🔹 Style
+            mark.style.clipPath = generateJaggedClipPath();
+            const scale = 0.15 + Math.random() * 0.1;
+            const rotation = Math.random() * 360;
+            mark.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
+
+            setTimeout(() => {
+                mark.style.opacity = '0';
+            }, 10);
+
+            setTimeout(() => {
+                mark.remove();
+            }, 10000);
+
+            document.body.appendChild(mark);
+        }
+
+        function generateJaggedClipPath(points = 20, radiusMin = 12, radiusMax = 24) {
+            const centerX = 50;
+            const centerY = 50;
+            const angleStep = (Math.PI * 2) / points;
+
+            const polygonPoints = [];
+
+            for (let i = 0; i < points; i++) {
+                const angle = i * angleStep;
+                const radius = radiusMin + Math.random() * (radiusMax - radiusMin);
+
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+
+                polygonPoints.push(`${x.toFixed(1)}% ${y.toFixed(1)}%`);
+            }
+
+            return `polygon(${polygonPoints.join(', ')})`;
+        }
+
+        function spawnInteractX() {
+            const xMark = document.createElement('div');
+            xMark.classList.add('interact-x');
+
+            const arms = ['tl', 'tr', 'br', 'bl'];
+            arms.forEach(arm => {
+                const line = document.createElement('div');
+                line.classList.add('interact-x-line', arm);
+                xMark.appendChild(line);
+            });
+
+            document.querySelector('.reticle').appendChild(xMark);
+
+            // Fade and remove
+            setTimeout(() => xMark.style.opacity = '0', 60);
+            setTimeout(() => xMark.remove(), 400);
+        }
+
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            const isInteractive =
+                target.closest('button, a, input, select, textarea, [role="button"], [onclick], .handle');
+
+            if (isInteractive) {
+                spawnInteractX();
+            }
+        });
+
+        let reticleEnabled = true;
+
+        function toggleReticle() {
+            reticleEnabled = !reticleEnabled;
+            const reticle = document.querySelector('.reticle');
+            const icon = document.querySelector('.reticle-icon');
+
+            if (reticleEnabled) {
+                reticle.style.display = 'block';
+                document.body.classList.add('reticle-on');
+                icon.textContent = '🎯';
+            } else {
+                reticle.style.display = 'none';
+                document.body.classList.remove('reticle-on');
+                icon.textContent = '🖱️'; // or anything else you prefer
+            }
+        }
+
+
+
+    </script>
+</body>
+</html>
