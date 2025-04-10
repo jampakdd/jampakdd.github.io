@@ -334,45 +334,43 @@
                 height: auto;
             }
 
-        /* Dark Mode Bulb */
         .theme-toggle {
             position: fixed;
             bottom: 1rem;
             right: 1rem;
-            width: 20px;
-            height: 20px;
+            width: auto;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 3000;
+            background: none;
+            border: none;
+            padding: 0;
+            box-shadow: none;
         }
 
         .bulb {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: #ccc;
-            box-shadow: 0 0 4px #ccc;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            background: none;
+            width: auto;
+            height: auto;
+            box-shadow: none;
         }
 
         body.dark-mode .bulb {
-            background-color: #ffd700;
-            box-shadow: 0 0 8px #ffd700, 0 0 16px #ffd700;
+            background: none;
+            box-shadow: none;
         }
 
         .bulb::before {
-            content: '🌙'; /* default: light mode */
-            font-size: 14px;
-            display: block;
-            text-align: center;
-            line-height: 20px;
-            transition: opacity 0.3s ease;
+            content: '🌙'; /* Light mode */
+            font-size: 18px;
+            line-height: 1;
         }
 
         body.dark-mode .bulb::before {
-            content: '☀️'; /* moon for dark mode */
+            content: '☀️'; /* Dark mode */
         }
 
         /* Jiggle & Pop */
@@ -814,7 +812,410 @@
             opacity: 1;
         }
 
+        .project-details {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-0.5rem);
+            transition: max-height 0.6s ease, opacity 0.4s ease, transform 0.4s ease;
+            padding: 0 2rem;
+            margin-top: -1rem;
+            background-color: rgba(0, 0, 0, 0.02);
+            border-left: 3px solid #338ac1;
+            border-radius: 0 4px 4px 0;
+            pointer-events: none;
+        }
 
+            .project-details .project-preview {
+                width: 100%;
+                max-width: 600px;
+                margin: 1rem auto 0;
+                display: block;
+                border-radius: 6px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+
+        .projects-row.active + .project-details,
+        .projects-row.hover-open + .project-details {
+            max-height: 2000px; /* enough to contain all content */
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            padding-top: 0.5rem;
+        }
+
+
+        .project-details ul {
+            padding: 1rem 1.5rem;
+            margin: 0;
+        }
+
+        .project-details li {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .project-details-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .project-preview-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 300px;
+            flex-shrink: 0;
+        }
+
+        .project-preview-wrapper {
+            text-align: left;
+        }
+
+        .project-preview {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: block;
+        }
+
+        .project-subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: left;
+            margin-top: 0.3rem;
+        }
+
+        .project-details-list {
+            flex: 1;
+            margin: 0;
+            padding-left: 1rem;
+        }
+
+            .project-details-list li {
+                font-size: 0.95rem;
+                margin-bottom: 0.5rem;
+                color: #333;
+            }
+
+        /* Bottom preview section */
+        .project-bottom-wrapper {
+            margin-top: 2rem;
+            text-align: center;
+            width: 100%;
+        }
+            .project-bottom-wrapper .project-subtitle {
+                text-align: center;
+                margin-top: 0.3rem;
+                font-size: 0.85rem;
+                color: #666;
+            }
+
+        .project-bottom-preview {
+            max-width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .project-inline-media {
+            margin-top: 1.5rem;
+            max-width: 100%;
+        }
+
+        .project-inline-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-subtitle.right {
+            text-align: left;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.3rem;
+            padding-left: 0.25rem;
+        }
+
+        .video-thumbnail-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .play-button-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .video-thumbnail-wrapper:hover .play-button-overlay {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .project-details-flex {
+                flex-direction: column;
+            }
+
+            .project-preview-column,
+            .project-details-list {
+                max-width: 100%;
+            }
+        }
+
+        .project-bottom-wrapper {
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .project-bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-preview-wrapper {
+            text-align: center;
+        }
+
+        .project-preview {
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        #Gallery {
+            background: #eee;
+            padding: 80px 3rem;
+        }
+
+        .gallery-section {
+            padding: 4rem 2rem;
+            background-color: #efefef;
+        }
+
+            .gallery-section h2 {
+                color: #338ac1;
+            }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+            align-items: start;
+        }
+
+        .gallery-item {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gallery-thumb-wrapper {
+            background-color: #3a3f47; /* dark blue-grey */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            overflow: hidden;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+            .gallery-thumb-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: 50% 50%;
+                transition: transform 0.4s ease;
+            }
+
+            .gallery-thumb-wrapper:hover img {
+                transform: scale(1.5); /* zoom level */
+                z-index: 2;
+            }
+
+        .gallery-subtitle {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .caption {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #555;
+            text-align: center;
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            background: rgba(0, 0, 0, 0.85);
+            padding: 1rem;
+            border-radius: 8px;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+            .lightbox.show {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .lightbox img {
+                max-width: 90vw;
+                max-height: 90vh;
+                display: block;
+                margin: 0 auto;
+                border-radius: 4px;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            }
+
+        .close-lightbox {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 10000;
+        }
+
+        .hover-lightbox {
+            position: relative;
+            display: inline-block;
+        }
+
+        .lightbox-preview {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            max-width: 90vw;
+            max-height: 90vh;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+            background: #111;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+            .lightbox-preview img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+
+        /* Show the lightbox only on hover */
+        .hover-lightbox:hover .lightbox-preview {
+            display: block;
+        }
+
+
+        .lightbox-controls {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+            .lightbox-controls button {
+                background: #fff;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                border-radius: 4px;
+                padding: 0.5rem 1rem;
+            }
+
+        .blurred-hover img {
+            filter: blur(10px);
+            transition: filter 0.4s ease;
+        }
+
+        .blurred-hover:hover img {
+            filter: blur(0);
+        }
+
+        .confidential-section button {
+            background-color: #338ac1;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .confidential-section button:hover {
+                background-color: #2a6b97;
+            }
+
+
+        .project-button-wrapper {
+            text-align: left;
+            margin-top: 0.75rem;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            color: #338ac1;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid transparent;
+            border-bottom: 1px solid #338ac1;
+            border-radius: 0;
+            cursor: pointer;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+            .dropdown-toggle:hover {
+                color: #28709c;
+                border-color: #28709c;
+            }
+
+            .dropdown-toggle:active {
+                color: #1c5c80;
+                border-color: #1c5c80;
+                transform: scale(0.98);
+            }
 
     </style>
 </head>
@@ -830,7 +1231,7 @@
     <header>
         <!-- Left: Logo -->
         <div class="logo">
-            <img src="SDKMedia_Logo.png" alt="Skylar Kelley Logo" class="logo-img" onclick="document.getElementById('Projects').scrollIntoView({ behavior: 'smooth' });">
+            <img src="Logos/SDKMedia_Logo.png" alt="Skylar Kelley Logo" class="logo-img" onclick="document.getElementById('Projects').scrollIntoView({ behavior: 'smooth' });">
 
             <div class="text-block">
                 <div class="logo-title" onclick="document.getElementById('About').scrollIntoView({ behavior: 'smooth' });">
@@ -850,7 +1251,7 @@
             <div class="social-item">
                 <div class="social-icon-group">
                     <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" title="LinkedIn">
-                        <img src="LinkedIn_Logo.png" alt="LinkedIn" />
+                        <img src="Logos/LinkedIn_Logo.png" alt="LinkedIn" />
                     </a>
                     <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" class="handle">@skylarkelley</a>
                 </div>
@@ -858,7 +1259,7 @@
             <div class="social-item">
                 <div class="social-icon-group">
                     <a href="https://www.instagram.com/sky_sdk/" target="_blank" title="Instagram">
-                        <img src="Instagram_Logo.png" alt="Instagram" />
+                        <img src="Logos/Instagram_Logo.png" alt="Instagram" />
                     </a>
                     <a href="https://www.instagram.com/sky_sdk/" target="_blank" class="handle">@sky_sdk</a>
                 </div>
@@ -870,6 +1271,7 @@
             <a href="#Projects">Projects</a>
             <a href="#About">About</a>
             <a href="#Contact">Contact</a>
+            <a href="#Gallery">Gallery</a>
             <a href="#Demo">Demo</a>
         </nav>
     </header>
@@ -881,11 +1283,12 @@
                 <!-- Projects entries go here -->
                 <!-- Notorious Studios -->
                 <div class="projects-row">
-                    <div class="exp-left">
-                        <img src="LegacySteelAndSorcery.png"
+                    <div class="video-thumbnail-wrapper">
+                        <img src="LegacySteelAndSorcery/LegacySteelAndSorcery.png"
                              alt="Legacy Steel and Sorcery"
                              class="video-thumbnail"
                              onclick="openVideoModal('https://www.youtube.com/embed/jfOEYbcENBA')">
+                        <div class="play-button-overlay">▶</div>
                     </div>
 
                     <div class="exp-middle">
@@ -893,71 +1296,187 @@
                         <div><span class="company">Notorious Studios</span>: <span class="project">Legacy Steel and Sorcery</span></div>
                         <div class="blurb">Delivering iconic combat identity for an adrenaline-fueled 3rd person action PvPvE Extraction RPG.</div>
                         <div class="platforms">Platforms: PC - Steam</div>
+                        <div class="project-button-wrapper">
+                            <button class="dropdown-toggle">More Info ↓</button>
+                        </div>
                     </div>
                     <div class="exp-right">
                         <div class="date">May. '24 - Present</div>
-                        <img src="Notorious_Logo.png" alt="Notorious Logo">
+                        <img src="Logos/Notorious_Logo.png" alt="Notorious Logo">
+                    </div>
+                </div>
+                <!-- NEW: Dropdown outside the row -->
+                <div class="project-details">
+                    <div class="project-details-flex">
+                        <!-- LEFT: Vertical image column -->
+                        <div class="project-preview-column">
+                            <div class="project-preview-wrapper">
+                                <img src="LegacySteelAndSorcery/Hunter_BowDraw.png" alt="Combat preview" class="project-preview" />
+                                <div class="project-subtitle">Hunter Player Class</div>
+                            </div>
+                            <div class="project-preview-wrapper">
+                                <img src="LegacySteelAndSorcery/LegacySandSCombatPreview.png" alt="Combat preview" class="project-preview" />
+                                <div class="project-subtitle">Early combat prototype screenshot</div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT: Bullet points -->
+                        <ul class="project-details-list">
+                            <li>Implemented and iterated third-person action combat in Unreal Engine (including accessible FPS and Elden Ring–style melee) using Gameplay Ability System and Blueprints.</li>
+                            <li>Refined combat and player experience by implementing camera shakes, adjusting animation timings, collaborating on VFX/audio cues, rule consistency, and overall feedback loops.</li>
+                            <li>Designed, pitched, implemented, and iterated weapons, abilities, combat mechanics, AI behaviors, and world systems in a networked live-service environment.</li>
+                            <li>Led AI/NPC development from concept to implementation, adjusting designs based on player feedback.</li>
+                            <li>Served as DRI for enemy AI/NPC development and balance, creating more responsive, challenging, and immersive combat encounters.</li>
+                            <li>Built, iterated, and shipped 50+ mobs and a boss fight, each with unique movesets and behaviors for diverse player skill requirement.</li>
+
+                            <!-- NEW: Right-aligned image inside bullet list -->
+                            <!-- Image and subtitle go here, outside the UL block -->
+                            <div class="project-inline-media">
+                                <img src="LegacySteelAndSorcery/Steam_WarriorWalkingGIF.gif" alt="Combat Animation" class="project-inline-image" />
+                                <div class="project-subtitle right">Warrior Player Class</div>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="confidential-section">
+                        <button onclick="toggleSecret()">More</button>
+                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                            <p></p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Activision Blizzard -->
                 <div class="projects-row">
                     <div class="exp-left">
-                        <img src="Odyssey_22-24.png" alt="Odyssey">
+                        <img src="Odyssey/Odyssey_22-24.png" alt="Odyssey">
                     </div>
                     <div class="exp-middle">
                         <div class="job-title">Combat Designer & Gameplay Scripter</div>
                         <div><span class="company">Activision Blizzard</span>: <span class="project">Unannounced Survival Game - Odyssey</span></div>
                         <div class="blurb">Developing industry-leading moment-to-moment gameplay.</div>
                         <div class="platforms">Platforms: Canceled Console & PC</div>
+                        <div class="project-button-wrapper">
+                            <button class="dropdown-toggle">More Info ↓</button>
+                        </div>
+
                     </div>
                     <div class="exp-right">
                         <div class="date">Nov. '22 - Apr. '24</div>
-                        <img src="Blizzard_Logo.png" alt="Blizzard Logo">
+                        <img src="Logos/Blizzard_Logo.png" alt="Blizzard Logo">
+                    </div>
+                </div>
+                <!-- NEW: Dropdown outside the row -->
+                <div class="project-details">
+                    <ul>
+                        <li>Collaborated with Directors, Product Owners, and team members to elevate overall player feel.</li>
+                        <li>Engineered a modular, designer-friendly weapon authoring system and shipped 30+ weapons, including advanced behaviors (controllable rockets, God of War–style axe).</li>
+                        <li>Documented hundreds of consumable items and weapons, and partnered with Engineering to build a flexible consumable item pipeline (supporting hunger/thirst, throwables, channelables, deployables, etc.).</li>
+                        <li>Owned and maintained weapon and consumable pipelines, creating and updating combat balancing sheets to identify weaknesses and power spikes.</li>
+                        <li>Led dozens of playtests with stakeholders to iteratively refine game feel and maintain balanced combat.</li>
+                    </ul>
+
+                    <div class="confidential-section">
+                        <button onclick="toggleSecret()">More</button>
+                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                            <p></p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Bladework Games -->
                 <div class="projects-row">
                     <div class="exp-left">
-                        <img src="BladeworkGames_21-22.png" alt="Bladework Games">
+                        <img src="Bladework/BladeworkGames_21-22.png" alt="Bladework Games">
                     </div>
                     <div class="exp-middle">
                         <div class="job-title">Game Designer & Programmer</div>
                         <div><span class="company">Bladework Games</span>: <span class="project">Unannounced Action Combat Game</span></div>
                         <div class="blurb">Prototyping and implementing the core game loop and cutting-edge moment-to-moment action combat.</div>
                         <div class="platforms">Platform: Unreleased Console & PC</div>
+                        <div class="project-button-wrapper">
+                            <button class="dropdown-toggle">More Info ↓</button>
+                        </div>
+
                     </div>
                     <div class="exp-right">
                         <div class="date">Mar. '21 - Nov. '22</div>
-                        <img src="Bladework_Logo.png" alt="Bladework Logo">
+                        <img src="Logos/Bladework_Logo.png" alt="Bladework Logo">
+                    </div>
+                </div>
+                <!-- NEW: Dropdown outside the row -->
+                <div class="project-details">
+                    <ul>
+                        <li>Implemented and iterated core systems in Unreal 4 (C++ & Blueprints) and Unity (C#), including advanced player movement (vaulting, climbing, dashing, double jumping), projectile physics, melee combat, networked player states, and interactive elements.</li>
+                        <li>Prototyped and shipped features for a strictly server-authoritative, networked environment.</li>
+                        <li>Created functional prototypes for executives and product owners, with documentation detailing cross-departmental requirements.</li>
+                        <li>Organized and led stakeholder playtests to refine gameplay and align design goals.</li>
+                    </ul>
+
+                    <div class="confidential-section">
+                        <button onclick="toggleSecret()">More</button>
+                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                            <p></p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Detour Bus -->
                 <div class="projects-row">
                     <div class="exp-left">
-                        <img src="DetourBus_20-21.png"
+                        <img src="DetourBus/DetourBus_20-21.png"
                              alt="Detour Bus"
                              class="video-thumbnail"
                              onclick="openVideoModal('https://www.youtube.com/embed/SMjK3hcUg2Q')">
                     </div>
-
                     <div class="exp-middle">
                         <div class="job-title">Lead Game Designer & Gameplay Scripter</div>
                         <div><span class="company">Detour Bus</span>: <span class="project">Detour Bus</span></div>
                         <div class="blurb">Take on the challenges of a nostalgic and wacky VR road trip!</div>
                         <div class="platforms">Platforms: PC - Steam VR, Meta Quest</div>
+                        <div class="project-button-wrapper">
+                            <button class="dropdown-toggle">More Info ↓</button>
+                        </div>
+
                     </div>
                     <div class="exp-right">
                         <div class="date">Apr. '20 - Mar. '21</div>
+                        <img src="Logos/DetourBus_Logo.png" alt="Detour Bus Logo">
+                    </div>
+                </div>
+                <!-- NEW: Dropdown outside the row -->
+                <div class="project-details">
+                    <div class="project-details-flex">
+                        <!-- LEFT IMAGES (STACKED) -->
+                        <div class="project-preview-column">
+                            <div class="project-preview-wrapper">
+                                <img src="DetourBus/Detourbus_Carnival.png" alt="Detour Bus Carnival" class="project-preview" />
+                                <div class="project-subtitle">Carnival Minigames!</div>
+                            </div>
+                            <div class="project-preview-wrapper">
+                                <img src="DetourBus/Detourbus_Volcano.png" alt="Detour Bus Volcano" class="project-preview" />
+                                <div class="project-subtitle">Lava Level!</div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT BULLET POINTS -->
+                        <ul class="project-details-list">
+                            <li>Documented experience goals, core loops, level design, and player feedback requirements.</li>
+                            <li>Concepted, implemented, and iterated accessible VR movement/interaction mechanics based on playtest insights.</li>
+                            <li>Created 8 in-game event sequences, 4 levels, 8 carnival mini-games, and a boss fight, incorporating goal communication, particle effects, and a cohesive puzzle vibe.</li>
+                        </ul>
+                    </div>
+                    <div class="confidential-section">
+                        <button onclick="toggleSecret()">More</button>
+                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                            <p></p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Banana Bird Studios -->
                 <div class="projects-row">
                     <div class="exp-left">
-                        <img src="Beasts_19-20.png"
+                        <img src="BeastsOfMaravilla/Beasts_19-20.png"
                              alt="Beasts of Maravilla Island"
                              class="video-thumbnail"
                              onclick="openVideoModal('https://www.youtube.com/embed/NjjEnLDsRhE')">
@@ -967,34 +1486,138 @@
                         <div><span class="company">Banana Bird Studios</span>: <span class="project">Beasts of Maravilla Island</span></div>
                         <div class="blurb">Discover the wonder of Maravilla Island in this magical wildlife photography game.</div>
                         <div class="platforms">Platforms: Nintendo Switch, Xbox, Playstation, Steam</div>
+                        <div class="project-button-wrapper">
+                            <button class="dropdown-toggle">More Info ↓</button>
+                        </div>
+
                     </div>
                     <div class="exp-right">
                         <div class="date">Aug. '19 - Sep. '20</div>
-                        <img src="BananaBirdStudios_Logo.png" alt="Banana Bird Studios Logo">
+                        <img src="Logos/BananaBirdStudios_Logo.png" alt="Banana Bird Studios Logo">
                     </div>
                 </div>
+                <!-- NEW: Dropdown outside the row -->
+                <div class="project-details">
+                    <div class="project-details-flex">
+                        <!-- LEFT IMAGE COLUMN -->
+                        <div class="project-preview-column">
+                            <div class="project-preview-wrapper">
+                                <img src="BeastsOfMaravilla/BeastOfMaravilla_Beach_01.png" alt="Beach" class="project-preview" />
+                                <div class="project-subtitle">Beach Area</div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT BULLETS -->
+                        <ul class="project-details-list">
+                            <li>Tracked and managed more than 3000 hours of tasks from early game conception to release.</li>
+                            <li>Reviewed and critiqued art, design, and engineering deliverables to ensure experience goals were met within a feasible roadmap.</li>
+                            <li>Organized and led team sync-ups to maintain productivity—especially during remote transitions.</li>
+                            <li>Worked in-engine to develop and maintain the visual style of Beasts environments.</li>
+                            <li>Implemented, tested, and iterated on core and extraneous gameplay systems and features.</li>
+                            <li>Led outreach for a successful Kickstarter campaign, raising over $25k in total.</li>
+                            <li>Built and maintained scene management and performance optimization systems; helped squash critical bugs.</li>
+                            <li>And much more!</li>
+                        </ul>
+                    </div>
+
+                    <!-- Image Grid (2 per row) -->
+                    <div class="project-bottom-grid">
+                        <div class="project-preview-wrapper">
+                            <img src="BeastsOfMaravilla/BeastsOfMaravilla_Jungle_01.png" alt="Jungle 1" class="project-preview" />
+                            <div class="project-subtitle">Dense Jungle</div>
+                        </div>
+                        <div class="project-preview-wrapper">
+                            <img src="BeastsOfMaravilla/BeastsOfMaravilla_Jungle_02.png" alt="Jungle 2" class="project-preview" />
+                            <div class="project-subtitle">Jungle Temple</div>
+                        </div>
+                        <div class="project-preview-wrapper">
+                            <img src="BeastsOfMaravilla/BeastsOfMaravilla_Jungle_03.gif" alt="Jungle Gif 1" class="project-preview" />
+                            <div class="project-subtitle">Jungle Exploration</div>
+                        </div>
+                        <div class="project-preview-wrapper">
+                            <img src="BeastsOfMaravilla/BeastsOfMaravilla_Jungle_04.gif" alt="Jungle Gif 2" class="project-preview" />
+                            <div class="project-subtitle">Note Book</div>
+                        </div>
+                        <div class="project-preview-wrapper">
+                            <img src="BeastsOfMaravilla/BeastsOfMaravilla_Jungle_05.png" alt="Jungle 5" class="project-preview" />
+                            <div class="project-subtitle">In The Banyan Trees</div>
+                        </div>
+                        <div class="project-preview-wrapper">
+                            <img src="BeastsOfMaravilla/BeastsOfMaravilla_Temple_01.png" alt="Temple" class="project-preview" />
+                            <div class="project-subtitle">Mountain Top Temple</div>
+                        </div>
+                    </div>
+                    <div class="confidential-section">
+                        <button onclick="toggleSecret()">More</button>
+                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Treyarch -->
                 <div class="projects-row">
                     <div class="exp-left">
-                        <img src="Treyarch_19-19.png" alt="Call of Duty: Black Ops 4">
+                        <img src="Treyarch/Treyarch_19-19.png"
+                             alt="Call of Duty: Black Ops 4"
+                             class="video-thumbnail"
+                             onclick="openVideoModal('https://youtu.be/aTS9n_m7TW0')">
                     </div>
                     <div class="exp-middle">
                         <div class="job-title">Game Designer & Gameplay Scripter - Intern</div>
                         <div><span class="company">Treyarch</span>: <span class="project">Call of Duty: Black Ops 4</span></div>
                         <div class="blurb">AAA Design Documentation, Collaboration, Prototyping, and Implementation using proprietary software and programming languages learned as needed.</div>
                         <div class="platforms">Platforms: PC, Xbox, PS4</div>
+                        <div class="project-button-wrapper">
+                            <button class="dropdown-toggle">More Info ↓</button>
+                        </div>
+
                     </div>
                     <div class="exp-right">
                         <div class="date">May '19 - Aug. '19</div>
-                        <img src="Treyarch_Logo.png" alt="Treyarch Logo">
+                        <img src="Logos/Treyarch_Logo.png" alt="Treyarch Logo">
+                    </div>
+                </div>
+                <!-- NEW: Dropdown outside the row -->
+                <div class="project-details">
+                    <div class="project-details-flex">
+                        <!-- LEFT IMAGES (STACKED) -->
+                        <div class="project-preview-column">
+                            <div class="project-preview-wrapper">
+                                <img src="Treyarch/Treyarch_E3_2019.png" alt="Treyarch Interns E3" class="project-preview" />
+                                <div class="project-subtitle">Treyarch Interns E3</div>
+                            </div>
+                            <div class="project-preview-wrapper">
+                                <img src="Treyarch/Treyarch_Group_2019.png" alt="Treyarch Interns" class="project-preview" />
+                                <div class="project-subtitle">Treyarch Interns</div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT BULLET POINTS -->
+                        <ul class="project-details-list">
+                            <li>Collaborated with level design interns to develop and iterate multiple ship-ready maps using the proprietary engine, code base, and scripting language.</li>
+                            <li>Designed, documented, and iterated 9 features aligned with studio gameplay goals; pitched 2 finalized features to studio leads.</li>
+                            <li>Concepted, documented, and iterated a new battle royale game mode experience.</li>
+                            <li>Prototyped a custom map game mode by repurposing existing assets and systems to achieve design document goals.</li>
+                            <li>Worked across departments to streamline AI encounter implementation and pushed changes to the code base after code review.</li>
+                            <li>Implemented and iterated on unique encounter designs for a gameplay prototype reflecting the design leads’ vision.</li>
+                            <li>Supported a prototype game mode with map setup, spawn placement, playtests, and iterative feedback in Radiant.</li>
+                            <li>Connected with team members from all disciplines to learn workflows, philosophies, tools, and professional insights.</li>
+                        </ul>
+                    </div>
+                    <div class="confidential-section">
+                        <button onclick="toggleSecret()">More</button>
+                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                            <p></p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Plasticity -->
                 <div class="projects-row">
                     <div class="exp-left">
-                        <img src="Plasticity_19-19.png"
+                        <img src="Plasticity/Plasticity_19-19.png"
                              alt="Plasticity"
                              class="video-thumbnail"
                              onclick="openVideoModal('https://www.youtube.com/embed/iDxRe_7rUQE')">
@@ -1004,9 +1627,35 @@
                         <div><span class="company">Plasticity</span>: <span class="project">Plasticity</span></div>
                         <div class="blurb">Responsible for background level art throughout 70% of the game and assisted the development of 2 minor scripted sequences.</div>
                         <div class="platforms">Platforms: PC - Steam</div>
+                        <div class="project-button-wrapper">
+                            <button class="dropdown-toggle">More Info ↓</button>
+                        </div>
+
                     </div>
                     <div class="exp-right">
                         <div class="date">Jan. '19 - Aug. '19</div>
+                    </div>
+                </div>
+                <!-- NEW: Dropdown outside the row -->
+                <div class="project-details">
+                    <ul>
+                        <li>Served as the 3D artist responsible for both environment and character art, shaping the visual identity of the game.</li>
+                        <li>Contributed assets and polish across the game to support its emotional and narrative goals around environmental awareness.</li>
+                        <li>Helped deliver a cohesive visual message supporting the game’s social commentary on pollution and ecological neglect.</li>
+                    </ul>
+                    <div class="project-bottom-grid">
+                        <div class="project-preview-wrapper">
+                            <img src="Plasticity/Plasticity_City.png" alt="Plasticity City" class="project-preview" />
+                            <div class="project-subtitle">Polluted City</div>
+                        </div>
+                        <div class="project-preview-wrapper">
+                            <img src="Plasticity/Plasticity_Suburb.png" alt="Plasticity Suburb" class="project-preview" />
+                            <div class="project-subtitle">Tortured Suburbs</div>
+                        </div>
+                        <div class="project-preview-wrapper">
+                            <img src="Plasticity/Plasticity_Beach.gif" alt="Plasticity Beach" class="project-preview" />
+                            <div class="project-subtitle">Final Beach Sequence</div>
+                        </div>
                     </div>
                 </div>
 
@@ -1058,7 +1707,7 @@
                     </ul>
                 </div>
                 <div class="education-logo">
-                    <img src="USC_Logo.png" alt="USC Logo">
+                    <img src="Logos/USC_Logo.png" alt="USC Logo">
                 </div>
             </div>
 
@@ -1071,7 +1720,6 @@
                 <iframe src="Skylar Kelley Game Design Resume 2025 Spring.pdf" frameborder="0"></iframe>
             </div>
         </section>
-
 
         <section id="Contact">
             <h1>Contact</h1>
@@ -1087,7 +1735,7 @@
                 <div class="social-item">
                     <div class="social-icon-group">
                         <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" title="LinkedIn">
-                            <img src="LinkedIn_Logo.png" alt="LinkedIn" />
+                            <img src="Logos/LinkedIn_Logo.png" alt="LinkedIn" />
                         </a>
                         <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" class="handle">@skylarkelley</a>
                     </div>
@@ -1095,7 +1743,7 @@
                 <div class="social-item">
                     <div class="social-icon-group">
                         <a href="https://www.instagram.com/sky_sdk/" target="_blank" title="Instagram">
-                            <img src="Instagram_Logo.png" alt="Instagram" />
+                            <img src="Logos/Instagram_Logo.png" alt="Instagram" />
                         </a>
                         <a href="https://www.instagram.com/sky_sdk/" target="_blank" class="handle">@sky_sdk</a>
                     </div>
@@ -1103,6 +1751,116 @@
             </div>
         </section>
 
+        <section id="Gallery">
+            <h1>Gallery</h1>
+
+            <!-- ART -->
+            <div class="gallery-section">
+                <h2>Art</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/StevieNicks.png" alt="Stevie Nicks" class="lightbox-trigger"></div><div class="caption">Stevie Nicks</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Deadpool.png" alt="Deadpool" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Deadpool</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Owl.JPG" alt="Owl Closeup" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Owl Closeup</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Cloud Break.png" alt="Cloud Break" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Cloud Break</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Evening in the clouds.png" alt="Evening in the Clouds" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Evening in the Clouds</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Lake View.png" alt="Lake View" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Lake View</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Road Trip.png" alt="Road Trip" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Road Trip</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper blurred-hover"><img src="Gallery/VaporwaveLove.png" alt="VaporwaveLove" class="lightbox-trigger"></div><div class="caption">Vaporwave Love</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Glass.png" alt="Glass Render" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Glass Render</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/JunglePainting.png" alt="Jungle Painting" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Jungle Painting</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/RiverOils.png" alt="River Oils" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">River Oils</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/OceanSliceSky.png" alt="Ocean Slice Sky" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Ocean Slice Sky</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/VaporwaveReverb.png" alt="Vaporwave Reverb" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Vaporwave Reverb</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/GuitarGirl.png" alt="Guitar Girl" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Guitar Girl</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/HB Logo.jpg" alt="HB Logo" class="lightbox-trigger"></div><div class="caption">HB Logo</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Drawing.JPG" alt="Drawing" class="lightbox-trigger"></div><div class="caption">Drawing</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Smores.png" alt="Smores" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Smores</div></div>
+                </div>
+            </div>
+
+            <!-- PHOTOGRAPHY -->
+            <div class="gallery-section">
+                <h2>Photography</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/NoonOnMars.png" alt="Noon On Mars" class="lightbox-trigger"></div><div class="caption">Noon On Mars</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_0790.JPG" alt="Urban Dread" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Urban Dread</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_0491.JPG" alt="Industry" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Industry</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_0490.JPG" alt="Paths" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Paths</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_0489.JPG" alt="Sun Light" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Sun Light</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_8206.JPG" alt="Chicken Wire Hell" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Chicken Wire Hell</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_8334.JPG" alt="Pier" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Pier</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-4-4Street1.png" alt="Street 1" class="lightbox-trigger"></div><div class="caption">New York</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-10-22 Planes_1.jpg" alt="Planes 1" class="lightbox-trigger"></div><div class="caption">War Dive</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-10-22 Planes_2.jpg" alt="Planes 2" class="lightbox-trigger"></div><div class="caption">And They Were Roommates :o</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Photo Oct 23, 1 45 23 PM.jpg" alt="Photo Oct 23" class="lightbox-trigger"></div><div class="caption">Blue Angels</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-10-22Glass Waves.png" alt="Glass Waves" class="lightbox-trigger"></div><div class="caption">Glass Waves</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Amsterdam.JPG" alt="Amsterdam" class="lightbox-trigger"></div><div class="caption">Amsterdam</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/LostLove.png" alt="Lost Love" class="lightbox-trigger"></div><div class="caption">Lost Lover</div></div>
+                </div>
+            </div>
+
+            <!-- 3D MODELS -->
+            <div class="gallery-section">
+                <h2>3D Models</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Tree.png" alt="Tree" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Tree</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-8-7 Lantern Model.jpg" alt="Lantern Model" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Lantern Model</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/StarbucksCupRender.png" alt="Starbucks Cup" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Starbucks Cup</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Cartoon_Cabin_12-4-18.jpg" alt="Cartoon Cabin" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Cartoon Cabin</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/TVDrone.png" alt="TV Drone" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">TV Drone</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/DropPod.png" alt="DropPod" class="lightbox-trigger"></div><div class="caption">DropPod</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/GoKart.png" alt="GoKart" class="lightbox-trigger"></div><div class="caption">GoKart</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Golem.png" alt="Golem" class="lightbox-trigger"></div><div class="caption">Golem</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Gun1.png" alt="Gun1" class="lightbox-trigger"></div><div class="caption">Gun1</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Gun2.png" alt="Gun2" class="lightbox-trigger"></div><div class="caption">Gun2</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Gun3.png" alt="Gun3" class="lightbox-trigger"></div><div class="caption">Gun3</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/HavenCity.png" alt="Haven City" class="lightbox-trigger"></div><div class="caption">Haven City</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/LandRoverRender.png" alt="Land Rover Render" class="lightbox-trigger"></div><div class="caption">Land Rover Render</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Lantern Render.png" alt="Lantern Render" class="lightbox-trigger"></div><div class="caption">Lantern Render</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/LogCabin0004.png" alt="Log Cabin" class="lightbox-trigger"></div><div class="caption">Log Cabin</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/LPDrummer.png" alt="LP Drummer" class="lightbox-trigger"></div><div class="caption">LP Drummer</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/M24.png" alt="M24" class="lightbox-trigger"></div><div class="caption">M24</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/NAT.png" alt="NAT" class="lightbox-trigger"></div><div class="caption">NAT</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/PowerCell.png" alt="Power Cell" class="lightbox-trigger"></div><div class="caption">Power Cell</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/QQJC3889.png" alt="QQJC3889" class="lightbox-trigger"></div><div class="caption">QQJC3889</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/RetroComputer.png" alt="Retro Computer" class="lightbox-trigger"></div><div class="caption">Retro Computer</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/RetroRocket.png" alt="Retro Rocket" class="lightbox-trigger"></div><div class="caption">Retro Rocket</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/SecurityCamera.png" alt="Security Camera" class="lightbox-trigger"></div><div class="caption">Security Camera</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/SentinalBeach.png" alt="Sentinal Beach" class="lightbox-trigger"></div><div class="caption">Sentinal Beach</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Set.png" alt="Set" class="lightbox-trigger"></div><div class="caption">Set</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/SST.png" alt="SST" class="lightbox-trigger"></div><div class="caption">SST</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Starbucks.png" alt="Starbucks" class="lightbox-trigger"></div><div class="caption">Starbucks</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/StarbucksCupRender.png" alt="Starbucks Cup Render" class="lightbox-trigger"></div><div class="caption">Starbucks Cup Render</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/StyalizedPineTree.png" alt="Stylized Pine Tree" class="lightbox-trigger"></div><div class="caption">Stylized Pine Tree</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/TelephonePole.png" alt="Telephone Pole" class="lightbox-trigger"></div><div class="caption">Telephone Pole</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/WoodYouTurnIt.png" alt="Wood You Turn It" class="lightbox-trigger"></div><div class="caption">Wood You Turn It</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/ZoomerBike.png" alt="Zoomer Bike" class="lightbox-trigger"></div><div class="caption">Zoomer Bike</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/ZoomerCar.png" alt="Zoomer Car" class="lightbox-trigger"></div><div class="caption">Zoomer Car</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-4-17 Light Saber.png" alt="Light Saber" class="lightbox-trigger"></div><div class="caption">Light Saber</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-5-3 Buddy.png" alt="Buddy" class="lightbox-trigger"></div><div class="caption">Buddy</div></div>
+
+                </div>
+            </div>
+
+            <!-- OTHER -->
+            <div class="gallery-section">
+                <h2>Other</h2>
+                <div class="gallery-grid">
+
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Jak.png" alt="Jak" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Jak</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Fox_Weasel.png" alt="Fox & Weasel" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Fox Weasel</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Avatar.png" alt="Avatar" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Avatar</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/ChieftyYT.png" alt="Chiefty YT" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Master Chief</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Feather.png" alt="Feather" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Feather</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Fishnet_1024x1024.png" alt="Fishnet Texture" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Fishnet Games</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Jamp Logo.png" alt="Jamp Logo" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Jamp Logo</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Moments pass.png" alt="Moments Pass" style="object-position: 50% 40%;" class="lightbox-trigger"></div><div class="caption">Moments</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/unknown.png" alt="Unknown" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Unknown Hazard</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Paint Swirl.png" alt="Paint Swirl" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Paint Swirl</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Tapes.png" alt="Tapes" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Tapes</div></div>
+                </div>
+            </div>
+        </section>
 
         <section id="Demo">
             <h1>Demo</h1>
@@ -1126,7 +1884,17 @@
         <div class="reticle-icon">🎯</div>
     </div>
 
-
+    <!-- Enhanced Lightbox -->
+    <div id="enhanced-lightbox" class="lightbox" onclick="closeEnhancedLightbox()">
+        <div class="lightbox-inner" onclick="event.stopPropagation()">
+            <span class="close-lightbox" onclick="closeEnhancedLightbox()">×</span>
+            <img id="enhanced-lightbox-img" src="" alt="Preview" />
+            <div class="lightbox-controls">
+                <button onclick="showPrevImage()">⟵</button>
+                <button onclick="showNextImage()">⟶</button>
+            </div>
+        </div>
+    </div>
     <script>
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
@@ -1209,8 +1977,10 @@
             reticle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
             requestAnimationFrame(updateReticleTransform);
         }
+    </script>
 
-        // Fire one "shot" of reticle – grow if possible, always pop
+    <script>
+    // Fire one "shot" of reticle – grow if possible, always pop
         function fireReticleShot() {
             if (offset < maxOffset) {
                 offset = Math.min(offset + growthStep, maxOffset);
@@ -1283,7 +2053,9 @@
         // Start animation loops
         updateReticleTransform();
         smoothShrink();
-        document.body.classList.add('reticle-on');
+        // Reticle is disabled by default
+        reticle.style.display = 'none';
+        document.body.classList.remove('reticle-on');
 
         function spawnShotMark(x, y) {
             const mark = document.createElement('div');
@@ -1365,6 +2137,17 @@
             return `polygon(${polygonPoints.join(', ')})`;
         }
 
+        function toggleSecret() {
+            const tell = prompt("Enter password to view this section:");
+            const cops = "!CombatDesigner1";
+
+            if (tell === cops) {
+                document.getElementById("confidential-content").style.display = "block";
+            } else if (tell !== null) {
+                alert("Incorrect password.");
+            }
+        }
+
         function spawnInteractX() {
             const xMark = document.createElement('div');
             xMark.classList.add('interact-x');
@@ -1393,7 +2176,7 @@
             }
         });
 
-        let reticleEnabled = true;
+        let reticleEnabled = false;
 
         function toggleReticle() {
             reticleEnabled = !reticleEnabled;
@@ -1401,17 +2184,196 @@
             const icon = document.querySelector('.reticle-icon');
 
             if (reticleEnabled) {
+                // Enable reticle, hide system cursor
                 reticle.style.display = 'block';
                 document.body.classList.add('reticle-on');
-                icon.textContent = '🎯';
+                icon.textContent = '🖱️'; // shows mouse icon when reticle is active
             } else {
+                // Disable reticle, show system cursor
                 reticle.style.display = 'none';
                 document.body.classList.remove('reticle-on');
-                icon.textContent = '🖱️'; // or anything else you prefer
+                icon.textContent = '🎯'; // shows target icon when reticle is inactive
             }
         }
 
+        const projectRows = document.querySelectorAll('.projects-row');
+        const projectDetails = document.querySelectorAll('.project-details');
 
+        let lockedRow = null;
+
+        function pinAndToggleRow(row, isClick = false) {
+            const rectBefore = row.getBoundingClientRect();
+            const pinnedY = rectBefore.top;
+
+            // Step 1: Collapse all rows immediately
+            projectRows.forEach(r => r.classList.remove('active', 'hover-open'));
+
+            // Step 2: Wait for layout to update
+            requestAnimationFrame(() => {
+                // Step 3: Re-open the clicked or hovered row
+                if (isClick) {
+                    row.classList.add('active');
+                    lockedRow = row;
+                } else if (!lockedRow) {
+                    row.classList.add('hover-open');
+                }
+
+                // Step 4: After DOM reflows, scroll to keep row pinned
+                requestAnimationFrame(() => {
+                    const rectAfter = row.getBoundingClientRect();
+                    const dy = rectAfter.top - pinnedY;
+                    window.scrollBy({ top: -dy, behavior: 'auto' });
+                });
+            });
+        }
+
+        // Attach listeners
+        projectRows.forEach((row, index) => {
+            const details = projectDetails[index];
+
+            row.addEventListener('click', () => {
+                if (lockedRow === row) {
+                    lockedRow = null;
+                    //projectRows.forEach(r => r.classList.remove('active'));
+                } else {
+                    pinAndToggleRow(row, true);
+                }
+            });
+
+            /*
+            row.addEventListener('mouseenter', () => {
+                if (!lockedRow) pinAndToggleRow(row, false);
+            });
+
+            row.addEventListener('mouseleave', () => {
+                if (!lockedRow) row.classList.remove('hover-open');
+            });
+
+            details.addEventListener('mouseenter', () => {
+                if (!lockedRow) row.classList.add('hover-open');
+            });
+
+            details.addEventListener('mouseleave', () => {
+                if (!lockedRow) row.classList.remove('hover-open');
+            });
+            */
+        });
+
+        /*
+        // Close all on outside click
+        document.addEventListener('click', (e) => {
+            const inside = [...projectRows, ...projectDetails].some(el => el.contains(e.target));
+            if (!inside && lockedRow) {
+                lockedRow.classList.remove('active');
+                lockedRow = null;
+            }
+        });
+        */
+
+
+        function pinAndToggleRow(row, isClick = false) {
+            const rectBefore = row.getBoundingClientRect();
+            const pinnedY = rectBefore.top;
+
+            // Step 1: Collapse all rows immediately
+            projectRows.forEach(r => {
+                r.classList.remove('active', 'hover-open');
+            });
+
+            // Step 2: Wait for layout to update
+            requestAnimationFrame(() => {
+                // Step 3: Re-open target row
+                if (isClick) {
+                    row.classList.add('active');
+                    lockedRow = row;
+                } else if (!lockedRow) {
+                    row.classList.add('hover-open');
+                }
+
+                // Step 4: Recalculate new position and scroll
+                requestAnimationFrame(() => {
+                    const rectAfter = row.getBoundingClientRect();
+                    const dy = rectAfter.top - pinnedY;
+                    window.scrollBy({ top: -dy, behavior: 'auto' });
+                });
+            });
+        }
+
+
+        function pinRowToScreen(targetRow, changingRows, callback) {
+            const rectBefore = targetRow.getBoundingClientRect();
+            const pinnedY = rectBefore.top;
+
+            callback(); // Do the class toggles (open/close other rows)
+
+            requestAnimationFrame(() => {
+                const rectAfter = targetRow.getBoundingClientRect();
+                const dy = rectAfter.top - pinnedY;
+                window.scrollBy({ top: -dy, behavior: 'auto' });
+            });
+        }
+
+
+        // Automatically wrap video thumbnails and add overlay
+        document.querySelectorAll('.video-thumbnail').forEach(img => {
+            // Only wrap if not already wrapped
+            if (!img.closest('.video-thumbnail-wrapper')) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'video-thumbnail-wrapper';
+
+                const overlay = document.createElement('div');
+                overlay.className = 'play-button-overlay';
+                overlay.textContent = '▶';
+
+                // Insert wrapper before image and move image inside
+                img.parentNode.insertBefore(wrapper, img);
+                wrapper.appendChild(img);
+                wrapper.appendChild(overlay);
+            }
+        });
+
+        let currentImageIndex = 0;
+        let imageSources = [];
+
+        function openEnhancedLightbox(index) {
+            imageSources = Array.from(document.querySelectorAll('.lightbox-trigger')).map(img => img.src);
+            currentImageIndex = index;
+            const lightbox = document.getElementById("enhanced-lightbox");
+            const lightboxImg = document.getElementById("enhanced-lightbox-img");
+            lightboxImg.src = imageSources[index];
+            lightbox.classList.add("show");
+        }
+
+        function closeEnhancedLightbox() {
+            document.getElementById("enhanced-lightbox").classList.remove("show");
+        }
+
+        function showPrevImage() {
+            currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
+            document.getElementById("enhanced-lightbox-img").src = imageSources[currentImageIndex];
+        }
+
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % imageSources.length;
+            document.getElementById("enhanced-lightbox-img").src = imageSources[currentImageIndex];
+        }
+
+        document.addEventListener("keydown", (e) => {
+            const isOpen = document.getElementById("enhanced-lightbox").classList.contains("show");
+            if (!isOpen) return;
+            if (e.key === "Escape") closeEnhancedLightbox();
+            if (e.key === "ArrowLeft") showPrevImage();
+            if (e.key === "ArrowRight") showNextImage();
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.lightbox-trigger').forEach((img, index) => {
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openEnhancedLightbox(index);
+                });
+            });
+        });
 
     </script>
 </body>
