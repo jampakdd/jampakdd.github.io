@@ -6,1218 +6,7 @@
     <title>SDK Media</title>
     <link rel="icon" href="SDKMedia_Logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'IBM Plex Sans', sans-serif;
-            color: #333;
-            background-color: #fff;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-            body.dark-mode {
-                background-color: #121212;
-                color: #eee;
-            }
-
-                body.dark-mode .exp-left img {
-                    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-                }
-
-                body.dark-mode header {
-                    background-color: #1e1e1e;
-                    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
-                }
-        /* Header */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            padding: 1rem 2rem;
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            height: 100px;
-        }
-
-            header.shrink {
-                height: 60px;
-            }
-
-                header.shrink .logo-img {
-                    height: 36px;
-                }
-
-                header.shrink .logo-title {
-                    font-size: 1.2rem;
-                }
-
-                header.shrink .text-block span {
-                    font-size: 1.2rem;
-                }
-
-                header.shrink .social-icon-group img {
-                    width: 24px !important;
-                    height: 24px !important;
-                }
-
-        /* Logo */
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: #338ac1;
-            font-weight: bold;
-        }
-
-        .logo-img {
-            height: 60px;
-            transition: height 0.3s ease;
-        }
-
-        .logo-img,
-        .logo-title,
-        .logo-email {
-            cursor: pointer;
-            display: inline-block;
-            transition: transform 0.2s ease;
-            transform-origin: center;
-        }
-
-            .logo-img:hover,
-            .logo-title:hover,
-            .logo-email:hover {
-                animation: jiggle 0.4s ease-in-out;
-            }
-
-            .logo-img:active,
-            .logo-title:active,
-            .logo-email:active {
-                animation: pop 0.3s ease-in-out;
-            }
-
-        .logo-title {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #338ac1;
-            cursor: pointer;
-            display: inline-block;
-            transition: font-size 0.3s ease, transform 0.2s ease;
-            transform-origin: center center;
-            text-align: center;
-        }
-
-        /* Text Block */
-        .text-block {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Or center if that feels better visually */
-        }
-
-            .text-block span {
-                font-size: 2rem;
-                transition: font-size 0.3s ease;
-            }
-
-            .text-block .subtitle {
-                font-size: 0.875rem;
-                font-weight: normal;
-                color: #555;
-            }
-
-        /* Navigation */
-        nav,
-        .main-nav {
-            display: flex;
-            align-items: center;
-        }
-
-            nav a,
-            .main-nav a {
-                margin-left: 2rem;
-                text-decoration: none;
-                color: #338ac1;
-                font-weight: bold;
-                font-size: 1.25rem;
-                cursor: pointer;
-                transition: transform 0.2s ease;
-            }
-
-                nav a:hover,
-                .main-nav a:hover {
-                    animation: jiggle 0.4s ease-in-out;
-                }
-
-                nav a:active,
-                .main-nav a:active {
-                    animation: pop 0.3s ease-in-out;
-                }
-
-        /* Social Media */
-        .nav-social {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .social-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.75rem;
-            color: #338ac1;
-            text-align: center;
-            width: 48px;
-        }
-
-            .social-item a {
-                text-decoration: none;
-                color: inherit;
-            }
-
-        .social-icon-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-            .social-icon-group img {
-                width: 32px !important;
-                height: 32px !important;
-            }
-
-            .social-icon-group a img,
-            .handle {
-                display: inline-block;
-                cursor: pointer;
-            }
-
-                .social-icon-group a:hover img,
-                .handle:hover {
-                    animation: jiggle 0.4s ease-in-out;
-                }
-
-                .social-icon-group a:active img,
-                .handle:active {
-                    animation: pop 0.3s ease-in-out;
-                }
-
-        .handle {
-            font-size: 0.6rem;
-            font-weight: bold;
-            color: #338ac1;
-            text-align: center;
-            margin-top: 0.25rem;
-        }
-
-        /* Sections */
-        section {
-            padding: 100px 2rem 2rem 2rem;
-            min-height: 100vh;
-        }
-
-            section h1 {
-                color: #338ac1;
-                font-size: 2.5rem;
-            }
-
-        #Projects {
-            background: #f9f9f9;
-            padding-top: 120px;
-        }
-
-        #About,
-        #Contact,
-        #Demo {
-            padding-top: 40px;
-        }
-
-        #About {
-            background: #e9e9e9;
-        }
-
-        #Contact {
-            background: #d9d9d9;
-            padding-bottom: 1rem;
-            min-height: unset;
-        }
-
-        #Demo {
-            background: #c9c9c9;
-        }
-
-        body.dark-mode #Projects {
-            background-color: #1a1a1a;
-        }
-
-        body.dark-mode #About {
-            background-color: #222222;
-        }
-
-        body.dark-mode #Contact {
-            background-color: #2a2a2a;
-        }
-
-        body.dark-mode #Demo {
-            background-color: #333333;
-        }
-
-        /* Projects */
-        .projects-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 2rem;
-        }
-
-        .projects-row {
-            display: flex;
-            gap: 1rem;
-            padding: 2rem 0;
-        }
-
-        .exp-left img {
-            width: 360px;
-            height: auto;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
-
-        .exp-middle {
-            flex: 1;
-        }
-
-        .job-title {
-            font-weight: bold;
-            color: #338ac1;
-            font-size: 1.5rem;
-        }
-
-        .company {
-            font-weight: bold;
-        }
-
-        .project {
-            font-weight: normal;
-        }
-
-        .blurb {
-            margin: 0.5rem 0;
-        }
-
-        .platforms {
-            color: #777;
-            font-size: 0.875rem;
-        }
-
-        .exp-right {
-            text-align: right;
-        }
-
-            .exp-right .date {
-                font-weight: bold;
-            }
-
-            .exp-right img {
-                margin-top: 0.5rem;
-                width: 120px;
-                height: auto;
-            }
-
-        .theme-toggle {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            width: auto;
-            height: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 3000;
-            background: none;
-            border: none;
-            padding: 0;
-            box-shadow: none;
-        }
-
-        .bulb {
-            background: none;
-            width: auto;
-            height: auto;
-            box-shadow: none;
-        }
-
-        body.dark-mode .bulb {
-            background: none;
-            box-shadow: none;
-        }
-
-        .bulb::before {
-            content: '🌙'; /* Light mode */
-            font-size: 18px;
-            line-height: 1;
-        }
-
-        body.dark-mode .bulb::before {
-            content: '☀️'; /* Dark mode */
-        }
-
-        /* Jiggle & Pop */
-        @keyframes jiggle {
-            0%, 100% {
-                transform: rotate(0deg);
-            }
-
-            25% {
-                transform: rotate(2deg);
-            }
-
-            50% {
-                transform: rotate(-2deg);
-            }
-
-            75% {
-                transform: rotate(2deg);
-            }
-        }
-
-        @keyframes pop {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        /* Email Copy */
-        .email-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .copy-confirm {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-65%) translateY(30px) rotate(0deg);
-            font-size: 0.75rem;
-            font-weight: normal;
-            color: #aaa;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease, transform 0.5s ease;
-            white-space: nowrap;
-        }
-
-            .copy-confirm.visible {
-                opacity: 1;
-                transform: translateX(-65%) translateY(35px) rotate(-15deg);
-                transition: opacity 0.1s ease, transform 0.5s ease;
-            }
-
-        .about-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            align-items: flex-start;
-            margin-top: 2rem;
-        }
-
-        .about-left {
-            flex: 0 0 200px;
-        }
-
-        .about-image {
-            width: 100%;
-            max-width: 200px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .about-right {
-            flex: 1;
-        }
-
-        .about-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #338ac1;
-            margin-bottom: 0.25rem;
-        }
-
-        .about-title {
-            font-size: 1.1rem;
-            font-weight: normal;
-            color: #555;
-            margin-bottom: 1rem;
-        }
-
-        .about-bio {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .resume-section {
-            margin-top: 2rem;
-        }
-
-        .resume-link {
-            color: #338ac1;
-            font-weight: bold;
-            text-decoration: none;
-            transition: transform 0.2s ease;
-        }
-
-            .resume-link:hover {
-                animation: jiggle 0.4s ease-in-out;
-            }
-
-            .resume-link:active {
-                animation: pop 0.3s ease-in-out;
-            }
-
-        .resume-viewer {
-            margin-top: 2rem;
-            width: 100%;
-            height: 1000px; /* Increased from 600px */
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-            .resume-viewer iframe {
-                width: 100%;
-                height: 100%;
-                border: none;
-            }
-
-        .contact-content {
-            font-size: 1rem;
-            line-height: 1.8;
-            margin-top: 1.5rem;
-        }
-
-            .contact-content a {
-                color: #338ac1;
-                text-decoration: none;
-                font-weight: bold;
-                transition: color 0.2s ease;
-            }
-
-                .contact-content a:hover {
-                    text-decoration: underline;
-                }
-
-        .contact-socials {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .education-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 3rem;
-            align-items: flex-start;
-        }
-
-        .education-text {
-            flex: 1;
-            min-width: 250px;
-        }
-
-            .education-text h3 {
-                color: #338ac1;
-                margin-bottom: 0.5rem;
-                font-size: 1.5rem;
-            }
-
-            .education-text p {
-                margin: 0.4rem 0;
-                line-height: 1.6;
-            }
-
-            .education-text ul {
-                padding-left: 1.2rem;
-                margin: 0.5rem 0 1rem;
-            }
-
-            .education-text li {
-                font-size: 0.95rem;
-                line-height: 1.5;
-            }
-
-        .education-logo img {
-            width: 100px;
-            height: auto;
-        }
-
-        .video-thumbnail {
-            width: 360px;
-            height: auto;
-            cursor: pointer;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-        }
-
-            .video-thumbnail:hover {
-                transform: scale(1.03);
-            }
-
-        .video-modal {
-            display: none;
-            position: fixed;
-            z-index: 5000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            align-items: center;
-            justify-content: center;
-        }
-
-            .video-modal.active {
-                display: flex;
-            }
-
-        .video-content {
-            position: relative;
-        }
-
-            .video-content iframe {
-                max-width: 90vw;
-                max-height: 80vh;
-            }
-
-        .close-button {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #fff;
-            color: #000;
-            font-size: 1.5rem;
-            font-weight: bold;
-            padding: 0.25rem 0.6rem;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .reticle-toggle {
-            position: fixed;
-            bottom: 1rem;
-            right: 3.5rem; /* space to the left of the bulb */
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 3000;
-        }
-
-        .reticle-icon {
-            font-size: 14px;
-            transition: transform 0.2s ease;
-        }
-
-        .reticle-toggle:hover .reticle-icon {
-            transform: scale(1.2);
-        }
-
-        .reticle {
-            position: fixed;
-            z-index: 9999;
-            pointer-events: none;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            --base-offset: 10px; /* NEW: define default distance from center */
-        }
-
-            .reticle.returning .reticle-line {
-                transition: transform 0.4s ease;
-            }
-
-        .reticle-dot {
-            width: 5px; /* smaller */
-            height: 5px;
-            background: white;
-            border: 1px solid black; /* outline */
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-        }
-
-        .reticle-line {
-            position: absolute;
-            background: white;
-            border: 1px solid black; /* outline */
-            width: 4px;
-            height: 6px; /* half the length */
-            top: 50%;
-            left: 50%;
-            transform-origin: center;
-            transition: transform 0.07s ease-out, opacity 0.2s ease;
-        }
-
-            /* Default spacing using --base-offset */
-            .reticle-line.top {
-                transform: translate(-50%, calc(-50% - var(--offset, var(--base-offset))));
-            }
-
-            .reticle-line.bottom {
-                transform: translate(-50%, calc(-50% + var(--offset, var(--base-offset))));
-            }
-
-            .reticle-line.left {
-                transform: translate(calc(-50% - var(--offset, var(--base-offset))), -50%) rotate(90deg);
-            }
-
-            .reticle-line.right {
-                transform: translate(calc(-50% + var(--offset, var(--base-offset))), -50%) rotate(90deg);
-            }
-
-        /* Expanded spacing using --offset */
-        .reticle.expand .top {
-            transform: translate(-50%, calc(-50% - var(--offset, 32px)));
-        }
-
-        .reticle.expand .bottom {
-            transform: translate(-50%, calc(-50% + var(--offset, 32px)));
-        }
-
-        .reticle.expand .left {
-            transform: translate(calc(-50% - var(--offset, 32px)), -50%) rotate(90deg);
-        }
-
-        .reticle.expand .right {
-            transform: translate(calc(-50% + var(--offset, 32px)), -50%) rotate(90deg);
-        }
-
-        .shot-mark {
-            width: 100px;
-            height: 100px;
-            background: black;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 5000;
-            opacity: 1;
-            transition: opacity 9s linear;
-        }
-
-        body.reticle-on {
-            cursor: none;
-        }
-
-        body.reticle-on button,
-        body.reticle-on a,
-        body.reticle-on input,
-        body.reticle-on textarea,
-        body.reticle-on select {
-            cursor: none;
-        }
-
-            body.reticle-on * {
-                cursor: none !important;
-                user-select: none;
-            }
-
-        body:not(.reticle-on) {
-            cursor: auto;
-        }
-
-            body:not(.reticle-on) * {
-                user-select: text;
-                cursor: auto;
-            }
-
-
-        .reticle .interact-x {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .interact-x-line {
-            position: absolute;
-            width: 2px;
-            height: 6px;
-            background-color: red;
-            opacity: 1;
-            top: 50%;
-            left: 50%;
-            transform-origin: center;
-        }
-
-            .interact-x-line.tl {
-                transform: translate(-50%, -50%) rotate(45deg) translateY(-8px);
-            }
-
-            .interact-x-line.tr {
-                transform: translate(-50%, -50%) rotate(135deg) translateY(-8px);
-            }
-
-            .interact-x-line.br {
-                transform: translate(-50%, -50%) rotate(225deg) translateY(-8px);
-            }
-
-            .interact-x-line.bl {
-                transform: translate(-50%, -50%) rotate(315deg) translateY(-8px);
-            }
-
-        .reticle-toggle::after {
-            content: attr(title);
-            position: absolute;
-            bottom: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-
-        .reticle-toggle:hover::after {
-            opacity: 1;
-        }
-
-        .project-details {
-            overflow: hidden;
-            max-height: 0;
-            opacity: 0;
-            transform: translateY(-0.5rem);
-            transition: max-height 0.6s ease, opacity 0.4s ease, transform 0.4s ease;
-            padding: 0 2rem;
-            margin-top: -1rem;
-            background-color: rgba(0, 0, 0, 0.02);
-            border-left: 3px solid #338ac1;
-            border-radius: 0 4px 4px 0;
-            pointer-events: none;
-        }
-
-            .project-details .project-preview {
-                width: 100%;
-                max-width: 600px;
-                margin: 1rem auto 0;
-                display: block;
-                border-radius: 6px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            }
-
-        .projects-row.active + .project-details,
-        .projects-row.hover-open + .project-details {
-            max-height: 2000px; /* enough to contain all content */
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-            padding-top: 0.5rem;
-        }
-
-
-        .project-details ul {
-            padding: 1rem 1.5rem;
-            margin: 0;
-        }
-
-        .project-details li {
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
-            color: #333;
-        }
-
-        .project-details-flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            align-items: flex-start;
-        }
-
-        .project-preview-column {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 300px;
-            flex-shrink: 0;
-        }
-
-        .project-preview-wrapper {
-            text-align: left;
-        }
-
-        .project-preview {
-            width: 100%;
-            max-width: 100%;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            display: block;
-        }
-
-        .project-subtitle {
-            font-size: 0.85rem;
-            color: #666;
-            text-align: left;
-            margin-top: 0.3rem;
-        }
-
-        .project-details-list {
-            flex: 1;
-            margin: 0;
-            padding-left: 1rem;
-        }
-
-            .project-details-list li {
-                font-size: 0.95rem;
-                margin-bottom: 0.5rem;
-                color: #333;
-            }
-
-        /* Bottom preview section */
-        .project-bottom-wrapper {
-            margin-top: 2rem;
-            text-align: center;
-            width: 100%;
-        }
-            .project-bottom-wrapper .project-subtitle {
-                text-align: center;
-                margin-top: 0.3rem;
-                font-size: 0.85rem;
-                color: #666;
-            }
-
-        .project-bottom-preview {
-            max-width: 100%;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            display: block;
-            margin: 0 auto;
-        }
-
-        .project-inline-media {
-            margin-top: 1.5rem;
-            max-width: 100%;
-        }
-
-        .project-inline-image {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-subtitle.right {
-            text-align: left;
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 0.3rem;
-            padding-left: 0.25rem;
-        }
-
-        .video-thumbnail-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        .play-button-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .video-thumbnail-wrapper:hover .play-button-overlay {
-            opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-            .project-details-flex {
-                flex-direction: column;
-            }
-
-            .project-preview-column,
-            .project-details-list {
-                max-width: 100%;
-            }
-        }
-
-        .project-bottom-wrapper {
-            margin-top: 2rem;
-            width: 100%;
-        }
-
-        .project-bottom-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .project-preview-wrapper {
-            text-align: center;
-        }
-
-        .project-preview {
-            width: 100%;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-subtitle {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 0.3rem;
-        }
-
-        #Gallery {
-            background: #eee;
-            padding: 80px 3rem;
-        }
-
-        .gallery-section {
-            padding: 4rem 2rem;
-            background-color: #efefef;
-        }
-
-            .gallery-section h2 {
-                color: #338ac1;
-            }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            justify-items: center;
-            align-items: start;
-        }
-
-        .gallery-item {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .gallery-thumb-wrapper {
-            background-color: #3a3f47; /* dark blue-grey */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            aspect-ratio: 3 / 2;
-            overflow: hidden;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-            .gallery-thumb-wrapper img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: 50% 50%;
-                transition: transform 0.4s ease;
-            }
-
-            .gallery-thumb-wrapper:hover img {
-                transform: scale(1.5); /* zoom level */
-                z-index: 2;
-            }
-
-        .gallery-subtitle {
-            font-size: 0.9rem;
-            color: #555;
-            margin-top: 0.5rem;
-            text-align: center;
-        }
-
-        .caption {
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
-            color: #555;
-            text-align: center;
-        }
-
-        .lightbox {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.95);
-            background: rgba(0, 0, 0, 0.85);
-            padding: 1rem;
-            border-radius: 8px;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-            .lightbox.show {
-                opacity: 1;
-                pointer-events: auto;
-                transform: translate(-50%, -50%) scale(1);
-            }
-
-            .lightbox img {
-                max-width: 90vw;
-                max-height: 90vh;
-                display: block;
-                margin: 0 auto;
-                border-radius: 4px;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-            }
-
-        .close-lightbox {
-            position: absolute;
-            top: 1.5rem;
-            right: 2rem;
-            color: #fff;
-            font-size: 2.5rem;
-            cursor: pointer;
-            font-weight: bold;
-            z-index: 10000;
-        }
-
-        .hover-lightbox {
-            position: relative;
-            display: inline-block;
-        }
-
-        .lightbox-preview {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            max-width: 90vw;
-            max-height: 90vh;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
-            background: #111;
-            padding: 8px;
-            border-radius: 6px;
-        }
-
-            .lightbox-preview img {
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain;
-            }
-
-        /* Show the lightbox only on hover */
-        .hover-lightbox:hover .lightbox-preview {
-            display: block;
-        }
-
-
-        .lightbox-controls {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-
-            .lightbox-controls button {
-                background: #fff;
-                border: none;
-                font-size: 1.5rem;
-                cursor: pointer;
-                border-radius: 4px;
-                padding: 0.5rem 1rem;
-            }
-
-        .blurred-hover img {
-            filter: blur(10px);
-            transition: filter 0.4s ease;
-        }
-
-        .blurred-hover:hover img {
-            filter: blur(0);
-        }
-
-        .confidential-section button {
-            background-color: #338ac1;
-            color: white;
-            font-weight: bold;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-            .confidential-section button:hover {
-                background-color: #2a6b97;
-            }
-
-
-        .project-button-wrapper {
-            text-align: left;
-            margin-top: 0.75rem;
-        }
-
-        .dropdown-toggle {
-            background: none;
-            color: #338ac1;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 0.25rem 0.5rem;
-            border: 1px solid transparent;
-            border-bottom: 1px solid #338ac1;
-            border-radius: 0;
-            cursor: pointer;
-            transition: color 0.2s ease, border-color 0.2s ease;
-            text-decoration: none;
-            font-family: inherit;
-        }
-
-            .dropdown-toggle:hover {
-                color: #28709c;
-                border-color: #28709c;
-            }
-
-            .dropdown-toggle:active {
-                color: #1c5c80;
-                border-color: #1c5c80;
-                transform: scale(0.98);
-            }
-
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="reticle">
@@ -1272,15 +61,101 @@
             <a href="#About">About</a>
             <a href="#Contact">Contact</a>
             <a href="#Gallery">Gallery</a>
-            <a href="#Demo">Demo</a>
+            <a href="#Arcade">Arcade</a>
         </nav>
     </header>
 
     <main>
+
+        <!-- Combat Design Title Card -->
+        <div class="combat-title-card">
+            <h1 class="combat-title">Combat Designer & Technical Game Developer</h1>
+            <p class="combat-subtitle">
+                5+ years Combat Design | 8+ years Game Design | Camera, Character, Controls | Play Centric | Industry Leading Moment to Moment Gameplay | Prototyping + Playtesting + Iteration
+            </p>
+        </div>
+
         <section id="Projects">
             <h1>Projects</h1>
             <div class="Projects-table">
                 <!-- Projects entries go here -->
+                <!-- SDK Media -->
+                <div class="projects-row">
+                    <div class="video-thumbnail-wrapper">
+                        <img src="SDKMediaCollage.png"
+                            alt="SDK Media"
+                            class="video-thumbnail"
+                            onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                        <div class="play-button-overlay">▶</div>
+                    </div>
+
+                    <div class="exp-middle">
+                        <div class="job-title">Senior Combat Designer</div>
+                        <div><span class="company">SDK Media</span>: <span class="project">Various Projects</span></div>
+                        <div class="blurb">Delivering emotionally resonant, technically refined combat experiences that merge artistic vision, emotional impact, and precision design to craft unforgettable player experiences.</div>
+                        <div class="platforms">Platforms: PC, Mobile, AR/VR, Console</div>              
+                        <div class="store-links">
+                            <a href="https://store.steampowered.com/app/9999999/SDK_Media_Temp_Page/" target="_blank" class="steam-link">
+                                <img src="Logos/Steam_Icon_Logo.png" alt="Steam" class="steam-icon"> View on Steam
+                            </a>
+                            <a href="https://sdkmedia.itch.io/" target="_blank" class="itchio-link">
+                                <img src="Logos/Itchio_Logo.png" alt="Itch.io" class="itchio-icon"> View on Itch.io
+                            </a>
+                        </div>
+                        <div class="project-button-wrapper">
+                            <button class="dropdown-toggle">More Info ↓</button>
+                        </div>
+                    </div>
+
+                    <div class="exp-right">
+                        <div class="date">May. '24 – Present</div>
+                        <img src="Logos/SDKMedia_Logo.png" alt="SDK Media Logo">
+                    </div>
+                </div>
+
+                <!-- NEW: Dropdown outside the row -->
+                <div class="project-details">
+                    <div class="project-details-flex">
+                        <!-- LEFT PREVIEW -->
+                        <div class="project-preview-column">
+                            <div class="project-preview-wrapper">
+                                <img src="Gallery/Smores.png" alt="Smorror" class="project-preview" />
+                                <div class="project-subtitle">Smorror</div>
+                            </div>
+                            <div class="project-preview-wrapper">
+                                <img src="Other/NightDrive.png" alt="Night Drive" class="project-preview" />
+                                <div class="project-subtitle">Night Drive</div>
+                            </div>
+                            <div class="project-preview-wrapper">
+                                <img src="Other/NightDrive1.png" alt="Night Drive" class="project-preview" />
+                                <div class="project-subtitle">Night Drive1</div>
+                            </div>
+                            <div class="project-preview-wrapper">
+                                <img src="Other/NightDrive2.png" alt="Night Drive" class="project-preview" />
+                                <div class="project-subtitle">Night Drive2</div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT BULLET POINTS -->
+                        <ul class="project-details-list">
+                            <h3 class="project-section-title">Responsibilities</h3>
+                            <li>Led the design and implementation of cutting-edge combat systems across multiple prototype and production projects, establishing SDK Media’s gameplay first identity.</li>
+                            <li>Mentored designers and guided feature development pipelines to uphold high standards of gameplay quality and cohesion across projects.</li>
+                            <li>Defined and refined gameplay and combat pillars for diverse genres and platforms—ranging from fast-paced PC and Console action titles to immersive AR/VR experiences.</li>
+                            <li>Built and iterated advanced player control systems, weapons, and enemy behaviors focused on responsiveness, clarity, and player expression that evolve and improve existing combat systems.</li>
+                            <li>Collaborated cross-discipline with engineering, animation, and VFX to ensure gameplay feel and combat feedback met industry-leading standards.</li>
+                            <li>Directed internal playtesting and balancing initiatives to tune pacing, difficulty, and impact across all combat-driven titles.</li>
+                            <li>Produced comprehensive design documentation and communicated vision effectively to stakeholders and team members.</li>
+                            <li>Contributed to prototyping and iteration of core gameplay loops, ensuring alignment with overall design goals and player experience.</li>
+                            <div class="project-video-grid">
+                                <video controls class="project-inline-video">
+                                    <source src="Other/2024-03-13 01-03-19.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- Notorious Studios -->
                 <div class="projects-row">
                     <div class="video-thumbnail-wrapper">
@@ -1296,12 +171,15 @@
                         <div><span class="company">Notorious Studios</span>: <span class="project">Legacy Steel and Sorcery</span></div>
                         <div class="blurb">Delivering iconic combat identity for an adrenaline-fueled 3rd person action PvPvE Extraction RPG.</div>
                         <div class="platforms">Platforms: PC - Steam</div>
+                        <a href="https://store.steampowered.com/app/2344320/Legacy_Steel__Sorcery/" target="_blank" class="steam-link">
+                            <img src="Logos/Steam_Icon_Logo.png" alt="Steam" class="steam-icon"> View on Steam
+                        </a>
                         <div class="project-button-wrapper">
                             <button class="dropdown-toggle">More Info ↓</button>
                         </div>
                     </div>
                     <div class="exp-right">
-                        <div class="date">May. '24 - Present</div>
+                        <div class="date">May. '24 - May. '25</div>
                         <img src="Logos/Notorious_Logo.png" alt="Notorious Logo">
                     </div>
                 </div>
@@ -1311,17 +189,56 @@
                         <!-- LEFT: Vertical image column -->
                         <div class="project-preview-column">
                             <div class="project-preview-wrapper">
-                                <img src="LegacySteelAndSorcery/Hunter_BowDraw.png" alt="Combat preview" class="project-preview" />
-                                <div class="project-subtitle">Hunter Player Class</div>
+                                <img src="LegacySteelAndSorcery/Classpill_hunter.webp" alt="Combat preview" class="project-preview" />
+                                <div class="project-subtitle right">Hunter Player Class</div>
                             </div>
                             <div class="project-preview-wrapper">
-                                <img src="LegacySteelAndSorcery/LegacySandSCombatPreview.png" alt="Combat preview" class="project-preview" />
-                                <div class="project-subtitle">Early combat prototype screenshot</div>
+                                <img src="LegacySteelAndSorcery/Classpill_warrior.webp" alt="Combat preview" class="project-preview" />
+                                <div class="project-subtitle">Warrior Player Class</div>
+                            </div>
+                            <div class="project-preview-wrapper">
+                                <img src="LegacySteelAndSorcery/Classpill_priest.webp" alt="Combat preview" class="project-preview" />
+                                <div class="project-subtitle">Priest Player Class</div>
                             </div>
                         </div>
 
+
                         <!-- RIGHT: Bullet points -->
                         <ul class="project-details-list">
+                            <div class="confidential-section">
+                                <button class="confidential-button" onclick="toggleSecret(this)">More</button>
+                                <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                                    <h3 class="project-section-title">CONFIDENTIAL</h3>
+                                    <p>Please note this content is confidential.</p>
+                                    <p>Do not share or distribute without permission.</p>
+                                    <p>It is also WORK IN PROGRESS and not indicative of the final product or features.</p>
+                                    <h3 class="project-section-title">Videos</h3>
+                                    <div class="project-video-grid">
+                                        <video controls class="project-inline-video">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-15-03.mkv" type="video/webm">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-15-03.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-19-21.mkv" type="video/webm">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-19-21.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-22-38.mkv" type="video/webm">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-22-38.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-26-28.mkv" type="video/webm">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-26-28.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-28-38.mkv" type="video/webm">
+                                            <source src="LegacySteelAndSorcery/2025-04-14 15-28-38.mkv" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="project-section-title">Responsibilities</h3>
                             <li>Implemented and iterated third-person action combat in Unreal Engine (including accessible FPS and Elden Ring–style melee) using Gameplay Ability System and Blueprints.</li>
                             <li>Refined combat and player experience by implementing camera shakes, adjusting animation timings, collaborating on VFX/audio cues, rule consistency, and overall feedback loops.</li>
                             <li>Designed, pitched, implemented, and iterated weapons, abilities, combat mechanics, AI behaviors, and world systems in a networked live-service environment.</li>
@@ -1329,21 +246,93 @@
                             <li>Served as DRI for enemy AI/NPC development and balance, creating more responsive, challenging, and immersive combat encounters.</li>
                             <li>Built, iterated, and shipped 50+ mobs and a boss fight, each with unique movesets and behaviors for diverse player skill requirement.</li>
 
-                            <!-- NEW: Right-aligned image inside bullet list -->
-                            <!-- Image and subtitle go here, outside the UL block -->
+                            <h3 class="project-section-title">Gameplay</h3>
+                            <div class="project-inline-media">                                
+                                <iframe 
+                                    class="project-inline-video"
+                                    src="https://www.youtube.com/embed/yNoxgFjD4tM?start=83"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
+
+                                <iframe 
+                                    class="project-inline-video"
+                                    src="https://www.youtube.com/embed/0xDbOUANrd0?start=3615"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
+
+                                <iframe 
+                                    class="project-inline-video"
+                                    src="https://www.youtube.com/embed/rJVCFxyIFnA"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
+
+                                <iframe 
+                                    class="project-inline-video"
+                                    src="https://www.youtube.com/embed/5hYzNSd2oAY"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+
+                            <h3 class="project-section-title">Images</h3>
                             <div class="project-inline-media">
-                                <img src="LegacySteelAndSorcery/Steam_WarriorWalkingGIF.gif" alt="Combat Animation" class="project-inline-image" />
-                                <div class="project-subtitle right">Warrior Player Class</div>
+
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_1.png" alt="Legacy Steel and Sorcery 1" class="project-preview" />
+                                    <div class="project-subtitle">Skeletons</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_2.png" alt="Legacy Steel and Sorcery 2" class="project-preview" />
+                                    <div class="project-subtitle">Goblins</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_3.png" alt="Legacy Steel and Sorcery 3" class="project-preview" />
+                                    <div class="project-subtitle">Gemlin</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_4.png" alt="Legacy Steel and Sorcery 4" class="project-preview" />
+                                    <div class="project-subtitle">Wolves</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_5.png" alt="Legacy Steel and Sorcery 5" class="project-preview" />
+                                    <div class="project-subtitle">Spiders</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_6.png" alt="Legacy Steel and Sorcery 6" class="project-preview" />
+                                    <div class="project-subtitle">Arcane Eye</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_7.png" alt="Legacy Steel and Sorcery 7" class="project-preview" />
+                                    <div class="project-subtitle">Ogre King & Ogre</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_8.png" alt="Legacy Steel and Sorcery 8" class="project-preview" />
+                                    <div class="project-subtitle">Animated Armor</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_9.png" alt="Legacy Steel and Sorcery 9" class="project-preview" />
+                                    <div class="project-subtitle">Banshee</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="LegacySteelAndSorcery/LSaS_10.png" alt="Legacy Steel and Sorcery 10" class="project-preview" />
+                                    <div class="project-subtitle">Wraith</div>
+                                </div>
                             </div>
                         </ul>
                     </div>
-                    <div class="confidential-section">
-                        <button onclick="toggleSecret()">More</button>
-                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
-                            <p></p>
-                        </div>
-                    </div>
                 </div>
+            </div>
 
                 <!-- Activision Blizzard -->
                 <div class="projects-row">
@@ -1367,19 +356,100 @@
                 </div>
                 <!-- NEW: Dropdown outside the row -->
                 <div class="project-details">
-                    <ul>
-                        <li>Collaborated with Directors, Product Owners, and team members to elevate overall player feel.</li>
-                        <li>Engineered a modular, designer-friendly weapon authoring system and shipped 30+ weapons, including advanced behaviors (controllable rockets, God of War–style axe).</li>
-                        <li>Documented hundreds of consumable items and weapons, and partnered with Engineering to build a flexible consumable item pipeline (supporting hunger/thirst, throwables, channelables, deployables, etc.).</li>
-                        <li>Owned and maintained weapon and consumable pipelines, creating and updating combat balancing sheets to identify weaknesses and power spikes.</li>
-                        <li>Led dozens of playtests with stakeholders to iteratively refine game feel and maintain balanced combat.</li>
-                    </ul>
+                    <div class="project-details-flex">
+                        <ul class="project-details-list">
+                            <div class="confidential-section">
+                                <button class="confidential-button" onclick="toggleSecret(this)">More</button>
+                                <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                                    <h3 class="project-section-title">CONFIDENTIAL</h3>
+                                    <p>Please note this content is confidential.</p>
+                                    <p>Do not share or distribute without permission.</p>
+                                    <p>It is also WORK IN PROGRESS and not indicative of the final product or features.</p>
+                                    <h3 class="project-section-title">Videos</h3>
+                                    <div class="project-video-grid">
+                                        <img src="Odyssey/Boomerang.gif" alt="Boomerang" class="project-preview">
 
-                    <div class="confidential-section">
-                        <button onclick="toggleSecret()">More</button>
-                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
-                            <p></p>
-                        </div>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/woodChopDecalUpdate2.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-03-17_13-59-20.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-03-30_12-27-12.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-05-24 16-47-07.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-05-24 17-03-10.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-06-28 12-54-02.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-06-28 15-23-00.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-06-28 15-26-17.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-10-17_15-00-37.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-11-08_17-16-24.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-11-16 11-43-27.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-11-16 12-31-28.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-11-27 15-37-46.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/2023-11-29_14-21-19.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/arrowPlayerImpact.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/arrowPlayerImpactCrossbow.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/Hackathon-2022-Fairy_Cage_In_Action.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/healing.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/lootGlow2DarkForest.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/lootGlowUpdate2.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/poisonBombUpdate.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Odyssey/VFX_EMR_FEB.mp4" type="video/mp4">
+                                        </video>
+
+                                        <img src="Odyssey/featured-unannounced-survival-game.jpg" alt="Featured Unannounced Survival Game" class="project-preview">
+                                        <img src="Odyssey/Odyssey_22-24.png" alt="Odyssey Header" class="project-preview">
+                                        <img src="Odyssey/odyssey-blizzard-HD-scaled.jpg" alt="Odyssey Blizzard" class="project-preview">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="project-section-title">Responsibilities</h3>
+                            <li>Collaborated with Directors, Product Owners, and team members to elevate overall player feel.</li>
+                            <li>Engineered a modular, designer-friendly weapon authoring system and shipped 30+ weapons, including advanced behaviors (controllable rockets, God of War–style axe).</li>
+                            <li>Documented hundreds of consumable items and weapons, and partnered with Engineering to build a flexible consumable item pipeline (supporting hunger/thirst, throwables, channelables, deployables, etc.).</li>
+                            <li>Owned and maintained weapon and consumable pipelines, creating and updating combat balancing sheets to identify weaknesses and power spikes.</li>
+                            <li>Led dozens of playtests with stakeholders to iteratively refine game feel and maintain balanced combat.</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -1389,7 +459,7 @@
                         <img src="Bladework/BladeworkGames_21-22.png" alt="Bladework Games">
                     </div>
                     <div class="exp-middle">
-                        <div class="job-title">Game Designer & Programmer</div>
+                        <div class="job-title">Combat Designer & Programmer</div>
                         <div><span class="company">Bladework Games</span>: <span class="project">Unannounced Action Combat Game</span></div>
                         <div class="blurb">Prototyping and implementing the core game loop and cutting-edge moment-to-moment action combat.</div>
                         <div class="platforms">Platform: Unreleased Console & PC</div>
@@ -1405,18 +475,45 @@
                 </div>
                 <!-- NEW: Dropdown outside the row -->
                 <div class="project-details">
-                    <ul>
-                        <li>Implemented and iterated core systems in Unreal 4 (C++ & Blueprints) and Unity (C#), including advanced player movement (vaulting, climbing, dashing, double jumping), projectile physics, melee combat, networked player states, and interactive elements.</li>
-                        <li>Prototyped and shipped features for a strictly server-authoritative, networked environment.</li>
-                        <li>Created functional prototypes for executives and product owners, with documentation detailing cross-departmental requirements.</li>
-                        <li>Organized and led stakeholder playtests to refine gameplay and align design goals.</li>
-                    </ul>
+                    <div class="project-details-flex">
+                        <ul class="project-details-list">
+                            <div class="confidential-section">
+                                <button class="confidential-button" onclick="toggleSecret(this)">More</button>
+                                <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                                    <h3 class="project-section-title">CONFIDENTIAL</h3>
+                                    <p>Please note this content is confidential.</p>
+                                    <p>Do not share or distribute without permission.</p>
+                                    <p>It is also WORK IN PROGRESS and not indicative of the final product or features.</p>
+                                    <h3 class="project-section-title">Videos</h3>
+                                    <div class="project-video-grid">
+                                        <video controls class="project-inline-video">
+                                            <source src="Bladework/2022-09-12 19-49-55.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Bladework/2022-09-12 17-59-26.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Bladework/2022-08-16 12-32-24.mkv" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Bladework/2021-08-13 11-46-25.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Bladework/2021-09-24 17-07-09.mp4" type="video/mp4">
+                                        </video>
+                                        <video controls class="project-inline-video">
+                                            <source src="Bladework/2021-09-27 14-08-11.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="confidential-section">
-                        <button onclick="toggleSecret()">More</button>
-                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
-                            <p></p>
-                        </div>
+                            <h3 class="project-section-title">Responsibilities</h3>
+                            <li>Implemented and iterated core systems in Unreal 4 (C++ & Blueprints) and Unity (C#), including advanced player movement (vaulting, climbing, dashing, double jumping), projectile physics, melee combat, networked player states, and interactive elements.</li>
+                            <li>Prototyped and shipped features for a strictly server-authoritative, networked environment.</li>
+                            <li>Created functional prototypes for executives and product owners, with documentation detailing cross-departmental requirements.</li>
+                            <li>Organized and led stakeholder playtests to refine gameplay and align design goals.</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -1433,6 +530,9 @@
                         <div><span class="company">Detour Bus</span>: <span class="project">Detour Bus</span></div>
                         <div class="blurb">Take on the challenges of a nostalgic and wacky VR road trip!</div>
                         <div class="platforms">Platforms: PC - Steam VR, Meta Quest</div>
+                        <a href="https://store.steampowered.com/app/1342020/Detour_Bus/" target="_blank" class="steam-link">
+                            <img src="Logos/Steam_Icon_Logo.png" alt="Steam" class="steam-icon"> View on Steam
+                        </a>
                         <div class="project-button-wrapper">
                             <button class="dropdown-toggle">More Info ↓</button>
                         </div>
@@ -1460,16 +560,82 @@
 
                         <!-- RIGHT BULLET POINTS -->
                         <ul class="project-details-list">
+                            <div class="confidential-section">
+                                <button class="confidential-button" onclick="toggleSecret(this)">More</button>
+                                <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                                    <h3 class="project-section-title">CONFIDENTIAL</h3>
+                                    <p>Please note this content is confidential.</p>
+                                    <p>Do not share or distribute without permission.</p>
+                                    <p>It is also WORK IN PROGRESS and not indicative of the final product or features.</p>
+                                    <h3 class="project-section-title">Videos</h3>
+                                </div>
+                            </div>
+
+                            <h3 class="project-section-title">Responsibilities</h3>
                             <li>Documented experience goals, core loops, level design, and player feedback requirements.</li>
                             <li>Concepted, implemented, and iterated accessible VR movement/interaction mechanics based on playtest insights.</li>
                             <li>Created 8 in-game event sequences, 4 levels, 8 carnival mini-games, and a boss fight, incorporating goal communication, particle effects, and a cohesive puzzle vibe.</li>
+
+                            <h3 class="project-section-title">Images</h3>
+                            <div class="project-bottom-grid">
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/Mechanic Design Sketches.png" alt="Mechanic Design Sketches" class="project-preview" />
+                                    <div class="project-subtitle">Mechanic Design Sketch</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/Hot Air Balloon 1.gif" alt="Hot Air Balloon" class="project-preview" />
+                                    <div class="project-subtitle">Hot Air Balloon</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/Momma.gif" alt="Momma" class="project-preview" />
+                                    <div class="project-subtitle">Momma</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/DestinationMarker.gif" alt="Destination Marker" class="project-preview" />
+                                    <div class="project-subtitle">Destination Marker</div>
+                                </div>
+
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/Knotted roads.png" alt="Knotted Roads" class="project-preview" />
+                                    <div class="project-subtitle">Knotted Roads</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/ImpactParticles.gif" alt="Impact Particles" class="project-preview" />
+                                    <div class="project-subtitle">Impact Particles</div>
+                                </div>
+
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/Explosion.gif" alt="Explosion" class="project-preview" />
+                                    <div class="project-subtitle">Explosion</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/Explosion2.gif" alt="Explosion 2" class="project-preview" />
+                                    <div class="project-subtitle">Explosion 2</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/Explosion3.gif" alt="Explosion 3" class="project-preview" />
+                                    <div class="project-subtitle">Explosion 3</div>
+                                </div>
+                                
+                                
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/jumping fish.png" alt="Jumping Fish" class="project-preview" />
+                                    <div class="project-subtitle">Jumping Fish</div>
+                                </div>
+
+                                
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/DestinationHint.gif" alt="Destination Hint" class="project-preview" />
+                                    <div class="project-subtitle">Destination Hint</div>
+                                </div>
+                                <div class="project-preview-wrapper">
+                                    <img src="DetourBus/DestinationHint2.gif" alt="Destination Hint 2" class="project-preview" />
+                                    <div class="project-subtitle">Destination Hint 2</div>
+                                </div>
+                                
+                            </div>
+
                         </ul>
-                    </div>
-                    <div class="confidential-section">
-                        <button onclick="toggleSecret()">More</button>
-                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
-                            <p></p>
-                        </div>
                     </div>
                 </div>
 
@@ -1486,6 +652,24 @@
                         <div><span class="company">Banana Bird Studios</span>: <span class="project">Beasts of Maravilla Island</span></div>
                         <div class="blurb">Discover the wonder of Maravilla Island in this magical wildlife photography game.</div>
                         <div class="platforms">Platforms: Nintendo Switch, Xbox, Playstation, Steam</div>
+                        <div class="store-links">
+                            <a href="https://store.steampowered.com/app/1378020/Beasts_of_Maravilla_Island/" target="_blank" class="steam-link">
+                                <img src="Logos/Steam_Icon_Logo.png" alt="Steam" class="steam-icon"> View on Steam
+                            </a>
+
+                            <a href="https://www.nintendo.com/us/store/products/beasts-of-maravilla-island-switch/" target="_blank" class="nintendo-link">
+                                <img src="Logos/Nintendo_Switch_Logo.png" alt="Nintendo eShop" class="nintendo-icon"> View on Nintendo eShop
+                            </a>
+
+                            <a href="https://www.xbox.com/en-us/games/store/beasts-of-maravilla-island/9p2qkszk1k4x" target="_blank" class="xbox-link">
+                                <img src="Logos/Xbox_Icon_Logo.svg" alt="Xbox Store" class="xbox-icon"> View on Xbox Store
+                            </a>
+
+                            <a href="https://store.playstation.com/en-us/product/UP5223-PPSA07677_00-BEASTSPS5SIEA000" target="_blank" class="playstation-link">
+                                <img src="Logos/PlayStation_Icon_Logo.svg" alt="PlayStation Store" class="playstation-icon"> View on PlayStation Store
+                            </a>
+                        </div>
+
                         <div class="project-button-wrapper">
                             <button class="dropdown-toggle">More Info ↓</button>
                         </div>
@@ -1509,6 +693,18 @@
 
                         <!-- RIGHT BULLETS -->
                         <ul class="project-details-list">
+                            <div class="confidential-section">
+                                <button class="confidential-button" onclick="toggleSecret(this)">More</button>
+                                <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                                    <h3 class="project-section-title">CONFIDENTIAL</h3>
+                                    <p>Please note this content is confidential.</p>
+                                    <p>Do not share or distribute without permission.</p>
+                                    <p>It is also WORK IN PROGRESS and not indicative of the final product or features.</p>
+                                    <h3 class="project-section-title">Videos</h3>
+                                </div>
+                            </div>
+
+                            <h3 class="project-section-title">Responsibilities</h3>
                             <li>Tracked and managed more than 3000 hours of tasks from early game conception to release.</li>
                             <li>Reviewed and critiqued art, design, and engineering deliverables to ensure experience goals were met within a feasible roadmap.</li>
                             <li>Organized and led team sync-ups to maintain productivity—especially during remote transitions.</li>
@@ -1545,12 +741,6 @@
                         <div class="project-preview-wrapper">
                             <img src="BeastsOfMaravilla/BeastsOfMaravilla_Temple_01.png" alt="Temple" class="project-preview" />
                             <div class="project-subtitle">Mountain Top Temple</div>
-                        </div>
-                    </div>
-                    <div class="confidential-section">
-                        <button onclick="toggleSecret()">More</button>
-                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
-                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -1596,6 +786,18 @@
 
                         <!-- RIGHT BULLET POINTS -->
                         <ul class="project-details-list">
+                            <div class="confidential-section">
+                                <button class="confidential-button" onclick="toggleSecret(this)">More</button>
+                                <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                                    <h3 class="project-section-title">CONFIDENTIAL</h3>
+                                    <p>Please note this content is confidential.</p>
+                                    <p>Do not share or distribute without permission.</p>
+                                    <p>It is also WORK IN PROGRESS and not indicative of the final product or features.</p>
+                                    <h3 class="project-section-title">Videos</h3>
+                                </div>
+                            </div>
+
+                            <h3 class="project-section-title">Responsibilities</h3>
                             <li>Collaborated with level design interns to develop and iterate multiple ship-ready maps using the proprietary engine, code base, and scripting language.</li>
                             <li>Designed, documented, and iterated 9 features aligned with studio gameplay goals; pitched 2 finalized features to studio leads.</li>
                             <li>Concepted, documented, and iterated a new battle royale game mode experience.</li>
@@ -1605,12 +807,6 @@
                             <li>Supported a prototype game mode with map setup, spawn placement, playtests, and iterative feedback in Radiant.</li>
                             <li>Connected with team members from all disciplines to learn workflows, philosophies, tools, and professional insights.</li>
                         </ul>
-                    </div>
-                    <div class="confidential-section">
-                        <button onclick="toggleSecret()">More</button>
-                        <div id="confidential-content" style="display: none; margin-top: 1rem;">
-                            <p></p>
-                        </div>
                     </div>
                 </div>
 
@@ -1627,6 +823,9 @@
                         <div><span class="company">Plasticity</span>: <span class="project">Plasticity</span></div>
                         <div class="blurb">Responsible for background level art throughout 70% of the game and assisted the development of 2 minor scripted sequences.</div>
                         <div class="platforms">Platforms: PC - Steam</div>
+                        <a href="https://store.steampowered.com/app/1069360/Plasticity/" target="_blank" class="steam-link">
+                            <img src="Logos/Steam_Icon_Logo.png" alt="Steam" class="steam-icon"> View on Steam
+                        </a>
                         <div class="project-button-wrapper">
                             <button class="dropdown-toggle">More Info ↓</button>
                         </div>
@@ -1638,27 +837,40 @@
                 </div>
                 <!-- NEW: Dropdown outside the row -->
                 <div class="project-details">
-                    <ul>
+                    <ul class="project-details-list">
+                        <div class="confidential-section">
+                            <button class="confidential-button" onclick="toggleSecret(this)">More</button>
+                            <div id="confidential-content" style="display: none; margin-top: 1rem;">
+                                <h3 class="project-section-title">CONFIDENTIAL</h3>
+                                <p>Please note this content is confidential.</p>
+                                <p>Do not share or distribute without permission.</p>
+                                <p>It is also WORK IN PROGRESS and not indicative of the final product or features.</p>
+                                <h3 class="project-section-title">Videos</h3>
+
+                            </div>
+                        </div>
+
+                        <h3 class="project-section-title">Responsibilities</h3>
                         <li>Served as the 3D artist responsible for both environment and character art, shaping the visual identity of the game.</li>
                         <li>Contributed assets and polish across the game to support its emotional and narrative goals around environmental awareness.</li>
                         <li>Helped deliver a cohesive visual message supporting the game’s social commentary on pollution and ecological neglect.</li>
+                    
+                        <div class="project-bottom-grid">
+                            <div class="project-preview-wrapper">
+                                <img src="Plasticity/Plasticity_City.png" alt="Plasticity City" class="project-preview" />
+                                <div class="project-subtitle">Polluted City</div>
+                            </div>
+                            <div class="project-preview-wrapper">
+                                <img src="Plasticity/Plasticity_Suburb.png" alt="Plasticity Suburb" class="project-preview" />
+                                <div class="project-subtitle">Tortured Suburbs</div>
+                            </div>
+                            <div class="project-preview-wrapper">
+                                <img src="Plasticity/Plasticity_Beach.gif" alt="Plasticity Beach" class="project-preview" />
+                                <div class="project-subtitle">Final Beach Sequence</div>
+                            </div>
+                        </div>
                     </ul>
-                    <div class="project-bottom-grid">
-                        <div class="project-preview-wrapper">
-                            <img src="Plasticity/Plasticity_City.png" alt="Plasticity City" class="project-preview" />
-                            <div class="project-subtitle">Polluted City</div>
-                        </div>
-                        <div class="project-preview-wrapper">
-                            <img src="Plasticity/Plasticity_Suburb.png" alt="Plasticity Suburb" class="project-preview" />
-                            <div class="project-subtitle">Tortured Suburbs</div>
-                        </div>
-                        <div class="project-preview-wrapper">
-                            <img src="Plasticity/Plasticity_Beach.gif" alt="Plasticity Beach" class="project-preview" />
-                            <div class="project-subtitle">Final Beach Sequence</div>
-                        </div>
-                    </div>
                 </div>
-
             </div>
         </section>
 
@@ -1714,10 +926,11 @@
             <!-- Resume Block -->
             <div class="resume-section">
                 <h3>Resume</h3>
-                <p><a href="Skylar Kelley Game Design Resume 2025 Spring.pdf" target="_blank" class="resume-link">Download Resume (PDF)</a></p>
+                <p><a href="Skylar Kelley Game Design Resume 2025 Fall.pdf" target="_blank" class="resume-link">Download Resume (PDF)</a></p>
+                <p><a href="Skylar_Kelley_ATS_Resume_2025_Fall.pdf" target="_blank" class="resume-link">Download (ATS READY) Resume (PDF)</a></p>
             </div>
             <div class="resume-viewer">
-                <iframe src="Skylar Kelley Game Design Resume 2025 Spring.pdf" frameborder="0"></iframe>
+                <iframe src="Skylar Kelley Game Design Resume 2025 Fall.pdf" frameborder="0"></iframe>
             </div>
         </section>
 
@@ -1862,8 +1075,8 @@
             </div>
         </section>
 
-        <section id="Demo">
-            <h1>Demo</h1>
+        <section id="Arcade">
+            <h1>Arcade</h1>
             <p>This section is currently a work in progress. Stay tuned for future updates showcasing live combat and gameplay samples.</p>
         </section>
 
@@ -1895,486 +1108,6 @@
             </div>
         </div>
     </div>
-    <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
-
-        let lastScrollTop = 0;
-        const header = document.querySelector('header');
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (scrollTop > lastScrollTop && scrollTop > 50) {
-                // Scrolling down
-                header.classList.add('shrink');
-            } else {
-                // Scrolling up or near top
-                header.classList.remove('shrink');
-            }
-
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        });
-
-        function copyEmail() {
-            const email = "SkylarKelley@gmail.com";
-            navigator.clipboard.writeText(email).then(() => {
-                const confirm = document.getElementById("copy-confirm");
-                confirm.classList.add("visible");
-                setTimeout(() => {
-                    confirm.classList.remove("visible");
-                }, 1500);
-            }).catch(err => {
-                console.error("Failed to copy email:", err);
-            });
-        }
-
-        function openVideoModal(url) {
-            const modal = document.getElementById('videoModal');
-            const frame = document.getElementById('videoFrame');
-            frame.src = url + "?autoplay=1";
-            modal.classList.add('active');
-        }
-
-        function closeVideoModal() {
-            const modal = document.getElementById('videoModal');
-            const frame = document.getElementById('videoFrame');
-            frame.src = "";
-            modal.classList.remove('active');
-        }
-
-        const reticle = document.querySelector('.reticle');
-        let mouseX = 0;
-        let mouseY = 0;
-        let offset = 16;
-        const baseOffset = parseFloat(getComputedStyle(reticle).getPropertyValue('--base-offset')) || 10;
-        const maxOffset = 128;
-        const growthStep = 1;
-        const growthRate = 65;
-        const pauseDuration = 200;
-        const maxRotation = 10; // ⬅️ Limit for rotation in degrees
-
-        let holdInterval = null;
-        let shrinkPauseUntil = 0;
-        let currentRotation = 0;
-
-        let recoilX = 0;
-        let recoilY = 0;
-
-        // Track mouse position
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        // Apply reticle transform: position + rotation
-        function updateReticleTransform() {
-            const finalX = mouseX + recoilX;
-            const finalY = mouseY + recoilY;
-            reticle.style.top = `${finalY}px`;
-            reticle.style.left = `${finalX}px`;
-            reticle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-            requestAnimationFrame(updateReticleTransform);
-        }
-    </script>
-
-    <script>
-    // Fire one "shot" of reticle – grow if possible, always pop
-        function fireReticleShot() {
-            if (offset < maxOffset) {
-                offset = Math.min(offset + growthStep, maxOffset);
-                reticle.style.setProperty('--offset', `${offset}px`);
-            }
-
-            // Always apply a small rotational "pop"
-            const rotationBurst = (Math.random() - 0.5) * 10; // ±5 degrees
-            currentRotation += rotationBurst;
-            currentRotation = Math.max(-maxRotation, Math.min(maxRotation, currentRotation));
-
-            // Leave a shot mark on the page
-            spawnShotMark(mouseX + recoilX, mouseY + recoilY);
-
-            // ➕ Add subtle recoil movement (reticle crawl)
-            const recoilStep = 1.25;
-            recoilX += (Math.random() - 0.5) * recoilStep;
-            recoilY += -Math.abs(Math.random()) * recoilStep; // bias upward
-
-            // Pause shrinking
-            shrinkPauseUntil = Date.now() + pauseDuration;
-        }
-
-        // Mouse down initiates shots
-        document.addEventListener('mousedown', () => {
-            if (!reticleEnabled) return;
-
-            clearInterval(holdInterval);
-            fireReticleShot();
-            spawnInteractX();
-
-            holdInterval = setInterval(() => {
-                fireReticleShot();
-            }, growthRate);
-        });
-
-        document.addEventListener('mouseup', () => {
-            clearInterval(holdInterval);
-        });
-
-        // Smoothly shrink and rotate back to center
-        function smoothShrink() {
-            const now = Date.now();
-
-            if (now >= shrinkPauseUntil) {
-                // Shrink offset
-                if (offset > baseOffset) {
-                    offset -= (offset - baseOffset) * 0.1;
-                    if (Math.abs(offset - baseOffset) < 0.5) {
-                        offset = baseOffset;
-                    }
-                    reticle.style.setProperty('--offset', `${offset}px`);
-                }
-
-                // Smoothly decay rotation to 0
-                if (Math.abs(currentRotation) > 0.1) {
-                    currentRotation -= currentRotation * 0.1;
-                } else {
-                    currentRotation = 0;
-                }
-
-                // Ease recoil back toward center
-                recoilX -= recoilX * 0.1;
-                recoilY -= recoilY * 0.1;
-            }
-
-            requestAnimationFrame(smoothShrink);
-        }
-
-        // Start animation loops
-        updateReticleTransform();
-        smoothShrink();
-        // Reticle is disabled by default
-        reticle.style.display = 'none';
-        document.body.classList.remove('reticle-on');
-
-        function spawnShotMark(x, y) {
-            const mark = document.createElement('div');
-            mark.classList.add('shot-mark');
-
-            // 🎯 Authorable bias center within reticle spread (percent inside radius circle)
-            const biasXPercent = 0.5;  // 0 = far left, 1 = far right
-            const biasYPercent = 0.65;  // 0 = top, 1 = bottom
-
-            const spreadRadius = offset;
-
-            // Convert bias % to offset from center
-            const biasX = (biasXPercent - 0.5) * 2 * spreadRadius;
-            const biasY = (biasYPercent - 0.5) * 2 * spreadRadius;
-
-            // Gaussian bias for central clustering
-            function gaussianRandom(mean = 0, stddev = 1) {
-                let u = 1 - Math.random();
-                let v = Math.random();
-                return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v) * stddev + mean;
-            }
-
-            // Combine Gaussian + Uniform noise
-            const gaussianWeight = 0.6; // 🎯 how dominant the bell curve is (0 = uniform only, 1 = gaussian only)
-            const uniformWeight = 1 - gaussianWeight;
-
-            const dx = gaussianRandom(biasX, spreadRadius * 0.25) * gaussianWeight
-                + (Math.random() * 2 - 1) * spreadRadius * uniformWeight;
-            const dy = gaussianRandom(biasY, spreadRadius * 0.25) * gaussianWeight
-                + (Math.random() * 2 - 1) * spreadRadius * uniformWeight;
-
-            // Final screen-space shot location
-            const finalX = x + dx;
-            const finalY = y + dy;
-
-            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const absoluteX = finalX + scrollLeft;
-            const absoluteY = finalY + scrollTop;
-
-            mark.style.position = 'absolute';
-            mark.style.left = `${absoluteX}px`;
-            mark.style.top = `${absoluteY}px`;
-
-            // 🔹 Style
-            mark.style.clipPath = generateJaggedClipPath();
-            const scale = 0.15 + Math.random() * 0.1;
-            const rotation = Math.random() * 360;
-            mark.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
-
-            setTimeout(() => {
-                mark.style.opacity = '0';
-            }, 10);
-
-            setTimeout(() => {
-                mark.remove();
-            }, 10000);
-
-            document.body.appendChild(mark);
-        }
-
-        function generateJaggedClipPath(points = 20, radiusMin = 12, radiusMax = 24) {
-            const centerX = 50;
-            const centerY = 50;
-            const angleStep = (Math.PI * 2) / points;
-
-            const polygonPoints = [];
-
-            for (let i = 0; i < points; i++) {
-                const angle = i * angleStep;
-                const radius = radiusMin + Math.random() * (radiusMax - radiusMin);
-
-                const x = centerX + radius * Math.cos(angle);
-                const y = centerY + radius * Math.sin(angle);
-
-                polygonPoints.push(`${x.toFixed(1)}% ${y.toFixed(1)}%`);
-            }
-
-            return `polygon(${polygonPoints.join(', ')})`;
-        }
-
-        function toggleSecret() {
-            const tell = prompt("Enter password to view this section:");
-            const cops = "!CombatDesigner1";
-
-            if (tell === cops) {
-                document.getElementById("confidential-content").style.display = "block";
-            } else if (tell !== null) {
-                alert("Incorrect password.");
-            }
-        }
-
-        function spawnInteractX() {
-            const xMark = document.createElement('div');
-            xMark.classList.add('interact-x');
-
-            const arms = ['tl', 'tr', 'br', 'bl'];
-            arms.forEach(arm => {
-                const line = document.createElement('div');
-                line.classList.add('interact-x-line', arm);
-                xMark.appendChild(line);
-            });
-
-            document.querySelector('.reticle').appendChild(xMark);
-
-            // Fade and remove
-            setTimeout(() => xMark.style.opacity = '0', 60);
-            setTimeout(() => xMark.remove(), 400);
-        }
-
-        document.addEventListener('click', (e) => {
-            const target = e.target;
-            const isInteractive =
-                target.closest('button, a, input, select, textarea, [role="button"], [onclick], .handle');
-
-            if (isInteractive) {
-                spawnInteractX();
-            }
-        });
-
-        let reticleEnabled = false;
-
-        function toggleReticle() {
-            reticleEnabled = !reticleEnabled;
-            const reticle = document.querySelector('.reticle');
-            const icon = document.querySelector('.reticle-icon');
-
-            if (reticleEnabled) {
-                // Enable reticle, hide system cursor
-                reticle.style.display = 'block';
-                document.body.classList.add('reticle-on');
-                icon.textContent = '🖱️'; // shows mouse icon when reticle is active
-            } else {
-                // Disable reticle, show system cursor
-                reticle.style.display = 'none';
-                document.body.classList.remove('reticle-on');
-                icon.textContent = '🎯'; // shows target icon when reticle is inactive
-            }
-        }
-
-        const projectRows = document.querySelectorAll('.projects-row');
-        const projectDetails = document.querySelectorAll('.project-details');
-
-        let lockedRow = null;
-
-        function pinAndToggleRow(row, isClick = false) {
-            const rectBefore = row.getBoundingClientRect();
-            const pinnedY = rectBefore.top;
-
-            // Step 1: Collapse all rows immediately
-            projectRows.forEach(r => r.classList.remove('active', 'hover-open'));
-
-            // Step 2: Wait for layout to update
-            requestAnimationFrame(() => {
-                // Step 3: Re-open the clicked or hovered row
-                if (isClick) {
-                    row.classList.add('active');
-                    lockedRow = row;
-                } else if (!lockedRow) {
-                    row.classList.add('hover-open');
-                }
-
-                // Step 4: After DOM reflows, scroll to keep row pinned
-                requestAnimationFrame(() => {
-                    const rectAfter = row.getBoundingClientRect();
-                    const dy = rectAfter.top - pinnedY;
-                    window.scrollBy({ top: -dy, behavior: 'auto' });
-                });
-            });
-        }
-
-        // Attach listeners
-        projectRows.forEach((row, index) => {
-            const details = projectDetails[index];
-
-            row.addEventListener('click', () => {
-                if (lockedRow === row) {
-                    lockedRow = null;
-                    //projectRows.forEach(r => r.classList.remove('active'));
-                } else {
-                    pinAndToggleRow(row, true);
-                }
-            });
-
-            /*
-            row.addEventListener('mouseenter', () => {
-                if (!lockedRow) pinAndToggleRow(row, false);
-            });
-
-            row.addEventListener('mouseleave', () => {
-                if (!lockedRow) row.classList.remove('hover-open');
-            });
-
-            details.addEventListener('mouseenter', () => {
-                if (!lockedRow) row.classList.add('hover-open');
-            });
-
-            details.addEventListener('mouseleave', () => {
-                if (!lockedRow) row.classList.remove('hover-open');
-            });
-            */
-        });
-
-        /*
-        // Close all on outside click
-        document.addEventListener('click', (e) => {
-            const inside = [...projectRows, ...projectDetails].some(el => el.contains(e.target));
-            if (!inside && lockedRow) {
-                lockedRow.classList.remove('active');
-                lockedRow = null;
-            }
-        });
-        */
-
-
-        function pinAndToggleRow(row, isClick = false) {
-            const rectBefore = row.getBoundingClientRect();
-            const pinnedY = rectBefore.top;
-
-            // Step 1: Collapse all rows immediately
-            projectRows.forEach(r => {
-                r.classList.remove('active', 'hover-open');
-            });
-
-            // Step 2: Wait for layout to update
-            requestAnimationFrame(() => {
-                // Step 3: Re-open target row
-                if (isClick) {
-                    row.classList.add('active');
-                    lockedRow = row;
-                } else if (!lockedRow) {
-                    row.classList.add('hover-open');
-                }
-
-                // Step 4: Recalculate new position and scroll
-                requestAnimationFrame(() => {
-                    const rectAfter = row.getBoundingClientRect();
-                    const dy = rectAfter.top - pinnedY;
-                    window.scrollBy({ top: -dy, behavior: 'auto' });
-                });
-            });
-        }
-
-
-        function pinRowToScreen(targetRow, changingRows, callback) {
-            const rectBefore = targetRow.getBoundingClientRect();
-            const pinnedY = rectBefore.top;
-
-            callback(); // Do the class toggles (open/close other rows)
-
-            requestAnimationFrame(() => {
-                const rectAfter = targetRow.getBoundingClientRect();
-                const dy = rectAfter.top - pinnedY;
-                window.scrollBy({ top: -dy, behavior: 'auto' });
-            });
-        }
-
-
-        // Automatically wrap video thumbnails and add overlay
-        document.querySelectorAll('.video-thumbnail').forEach(img => {
-            // Only wrap if not already wrapped
-            if (!img.closest('.video-thumbnail-wrapper')) {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'video-thumbnail-wrapper';
-
-                const overlay = document.createElement('div');
-                overlay.className = 'play-button-overlay';
-                overlay.textContent = '▶';
-
-                // Insert wrapper before image and move image inside
-                img.parentNode.insertBefore(wrapper, img);
-                wrapper.appendChild(img);
-                wrapper.appendChild(overlay);
-            }
-        });
-
-        let currentImageIndex = 0;
-        let imageSources = [];
-
-        function openEnhancedLightbox(index) {
-            imageSources = Array.from(document.querySelectorAll('.lightbox-trigger')).map(img => img.src);
-            currentImageIndex = index;
-            const lightbox = document.getElementById("enhanced-lightbox");
-            const lightboxImg = document.getElementById("enhanced-lightbox-img");
-            lightboxImg.src = imageSources[index];
-            lightbox.classList.add("show");
-        }
-
-        function closeEnhancedLightbox() {
-            document.getElementById("enhanced-lightbox").classList.remove("show");
-        }
-
-        function showPrevImage() {
-            currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
-            document.getElementById("enhanced-lightbox-img").src = imageSources[currentImageIndex];
-        }
-
-        function showNextImage() {
-            currentImageIndex = (currentImageIndex + 1) % imageSources.length;
-            document.getElementById("enhanced-lightbox-img").src = imageSources[currentImageIndex];
-        }
-
-        document.addEventListener("keydown", (e) => {
-            const isOpen = document.getElementById("enhanced-lightbox").classList.contains("show");
-            if (!isOpen) return;
-            if (e.key === "Escape") closeEnhancedLightbox();
-            if (e.key === "ArrowLeft") showPrevImage();
-            if (e.key === "ArrowRight") showNextImage();
-        });
-
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('.lightbox-trigger').forEach((img, index) => {
-                img.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openEnhancedLightbox(index);
-                });
-            });
-        });
-
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
