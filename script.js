@@ -305,15 +305,12 @@ function toggleDarkMode() {
         let lockedRow = null;
 
         function pinAndToggleRow(row, isClick = false) {
-            const rectBefore = row.getBoundingClientRect();
-            const pinnedY = rectBefore.top;
+            const startY = window.scrollY;
+            const rectBefore = row.getBoundingClientRect().top;
 
-            // Step 1: Collapse all rows immediately
             projectRows.forEach(r => r.classList.remove('active', 'hover-open'));
 
-            // Step 2: Wait for layout to update
             requestAnimationFrame(() => {
-                // Step 3: Re-open the clicked or hovered row
                 if (isClick) {
                     row.classList.add('active');
                     lockedRow = row;
@@ -321,14 +318,17 @@ function toggleDarkMode() {
                     row.classList.add('hover-open');
                 }
 
-                // Step 4: After DOM reflows, scroll to keep row pinned
                 requestAnimationFrame(() => {
-                    const rectAfter = row.getBoundingClientRect();
-                    const dy = rectAfter.top - pinnedY;
-                    window.scrollBy({ top: -dy, behavior: 'auto' });
+                    const rectAfter = row.getBoundingClientRect().top;
+                    const scrollCorrection = rectAfter - rectBefore;
+                    window.scrollTo({
+                        top: startY + scrollCorrection,
+                        behavior: 'smooth'
+                    });
                 });
             });
         }
+
 
         // Attach listeners
         projectRows.forEach((row, index) => {
@@ -373,36 +373,6 @@ function toggleDarkMode() {
             }
         });
         */
-
-
-        function pinAndToggleRow(row, isClick = false) {
-            const rectBefore = row.getBoundingClientRect();
-            const pinnedY = rectBefore.top;
-
-            // Step 1: Collapse all rows immediately
-            projectRows.forEach(r => {
-                r.classList.remove('active', 'hover-open');
-            });
-
-            // Step 2: Wait for layout to update
-            requestAnimationFrame(() => {
-                // Step 3: Re-open target row
-                if (isClick) {
-                    row.classList.add('active');
-                    lockedRow = row;
-                } else if (!lockedRow) {
-                    row.classList.add('hover-open');
-                }
-
-                // Step 4: Recalculate new position and scroll
-                requestAnimationFrame(() => {
-                    const rectAfter = row.getBoundingClientRect();
-                    const dy = rectAfter.top - pinnedY;
-                    window.scrollBy({ top: -dy, behavior: 'auto' });
-                });
-            });
-        }
-
 
         function pinRowToScreen(targetRow, changingRows, callback) {
             const rectBefore = targetRow.getBoundingClientRect();
