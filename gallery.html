@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDK Media | Art Gallery</title>
+    <link rel="icon" href="SDKMedia_Logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="reticle">
+        <div class="reticle-dot"></div>
+        <div class="reticle-line top"></div>
+        <div class="reticle-line right"></div>
+        <div class="reticle-line bottom"></div>
+        <div class="reticle-line left"></div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="Logos/SDKMedia_Logo.png" alt="Skylar Kelley Logo" class="logo-img" onclick="window.location.href='index.html#Projects';">
+
+            <div class="text-block">
+                <div class="logo-title" onclick="window.location.href='index.html#DeveloperStats';">
+                    Skylar Kelley
+                </div>
+
+                <div class="email-container">
+                    <div class="subtitle logo-email" onclick="copyEmail()">SkylarKelley@gmail.com</div>
+                    <div id="copy-confirm" class="copy-confirm">Copied!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-social">
+            <div class="social-item">
+                <div class="social-icon-group">
+                    <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" title="LinkedIn">
+                        <img src="Logos/LinkedIn_Logo.png" alt="LinkedIn" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/skylarkelley/" target="_blank" class="handle">@skylarkelley</a>
+                </div>
+            </div>
+            <div class="social-item">
+                <div class="social-icon-group">
+                    <a href="https://www.instagram.com/sky_sdk/" target="_blank" title="Instagram">
+                        <img src="Logos/Instagram_Logo.png" alt="Instagram" />
+                    </a>
+                    <a href="https://www.instagram.com/sky_sdk/" target="_blank" class="handle">@sky_sdk</a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html#Projects">Projects</a>
+            <a href="index.html#DeveloperStats">Developer Stats</a>
+            <a href="index.html#Contact">Contact</a>
+            <a href="gallery.html" aria-current="page">Art Gallery</a>
+        </nav>
+    </header>
+
+    <main class="art-gallery-main">
+        <div class="combat-title-card gallery-title-card">
+            <p class="gallery-hero-kicker">Creative Archive</p>
+            <h1 class="combat-title">Art Gallery</h1>
+            <p class="combat-subtitle">Illustration, photography, and 3D work collected from studies, personal projects, and side explorations.</p>
+        </div>
+
+        <section id="Gallery" class="art-gallery-page">
+            <h1>Collections</h1>
+
+            <div class="gallery-quick-nav" role="navigation" aria-label="Art gallery collections">
+                <a href="#gallery-art" class="gallery-quick-nav-link gallery-quick-nav-link--art">
+                    <span class="gallery-quick-nav-title">Art</span>
+                    <span class="gallery-quick-nav-meta">16 pieces</span>
+                </a>
+                <a href="#gallery-photography" class="gallery-quick-nav-link gallery-quick-nav-link--photography">
+                    <span class="gallery-quick-nav-title">Photography</span>
+                    <span class="gallery-quick-nav-meta">14 pieces</span>
+                </a>
+                <a href="#gallery-3d" class="gallery-quick-nav-link gallery-quick-nav-link--3d">
+                    <span class="gallery-quick-nav-title">3D Models</span>
+                    <span class="gallery-quick-nav-meta">35 pieces</span>
+                </a>
+            </div>
+
+            <div class="gallery-section gallery-section--art" id="gallery-art" data-lightbox-group="art">
+                <div class="gallery-collection-header">
+                    <div class="gallery-collection-heading">
+                        <p class="gallery-panel-kicker">Illustration / Painting / Studies</p>
+                        <h2>Art</h2>
+                    </div>
+                    <div class="gallery-collection-meta">
+                        <span class="gallery-collection-count">16 pieces</span>
+                        <a href="#Gallery" class="gallery-back-link">Back to top</a>
+                    </div>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/StevieNicks.png" alt="Stevie Nicks" class="lightbox-trigger"></div><div class="caption">Stevie Nicks</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Deadpool.png" alt="Deadpool" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Deadpool</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Owl.JPG" alt="Owl Closeup" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Owl Closeup</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Cloud Break.png" alt="Cloud Break" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Cloud Break</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Evening in the clouds.png" alt="Evening in the Clouds" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Evening in the Clouds</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Lake View.png" alt="Lake View" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Lake View</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Road Trip.png" alt="Road Trip" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Road Trip</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Glass.png" alt="Glass Render" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Glass Render</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/JunglePainting.png" alt="Jungle Painting" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Jungle Painting</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/RiverOils.png" alt="River Oils" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">River Oils</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/OceanSliceSky.png" alt="Ocean Slice Sky" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Ocean Slice Sky</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/VaporwaveReverb.png" alt="Vaporwave Reverb" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Vaporwave Reverb</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/GuitarGirl.png" alt="Guitar Girl" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Guitar Girl</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/HB Logo.jpg" alt="HB Logo" class="lightbox-trigger"></div><div class="caption">HB Logo</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Drawing.JPG" alt="Drawing" class="lightbox-trigger"></div><div class="caption">Drawing</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Smores.png" alt="Smores" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Smores</div></div>
+                </div>
+            </div>
+
+            <div class="gallery-section gallery-section--photography" id="gallery-photography" data-lightbox-group="photography">
+                <div class="gallery-collection-header">
+                    <div class="gallery-collection-heading">
+                        <p class="gallery-panel-kicker">Travel / Urban / Observation</p>
+                        <h2>Photography</h2>
+                    </div>
+                    <div class="gallery-collection-meta">
+                        <span class="gallery-collection-count">14 pieces</span>
+                        <a href="#Gallery" class="gallery-back-link">Back to top</a>
+                    </div>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/NoonOnMars.png" alt="Noon On Mars" class="lightbox-trigger"></div><div class="caption">Noon On Mars</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_0790.JPG" alt="Urban Dread" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Urban Dread</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_0491.JPG" alt="Industry" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Industry</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_0490.JPG" alt="Paths" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Paths</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_0489.JPG" alt="Sun Light" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Sun Light</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_8206.JPG" alt="Chicken Wire Hell" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Chicken Wire Hell</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/IMG_8334.JPG" alt="Pier" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Pier</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-4-4Street1.png" alt="Street 1" class="lightbox-trigger"></div><div class="caption">New York</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-10-22 Planes_1.jpg" alt="Planes 1" class="lightbox-trigger"></div><div class="caption">War Dive</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-10-22 Planes_2.jpg" alt="Planes 2" class="lightbox-trigger"></div><div class="caption">And They Were Roommates :o</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Photo Oct 23, 1 45 23 PM.jpg" alt="Photo Oct 23" class="lightbox-trigger"></div><div class="caption">Blue Angels</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-10-22Glass Waves.png" alt="Glass Waves" class="lightbox-trigger"></div><div class="caption">Glass Waves</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Amsterdam.JPG" alt="Amsterdam" class="lightbox-trigger"></div><div class="caption">Amsterdam</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/LostLove.png" alt="Lost Love" class="lightbox-trigger"></div><div class="caption">Lost Lover</div></div>
+                </div>
+            </div>
+
+            <div class="gallery-section gallery-section--3d" id="gallery-3d" data-lightbox-group="models-3d">
+                <div class="gallery-collection-header">
+                    <div class="gallery-collection-heading">
+                        <p class="gallery-panel-kicker">Props / Vehicles / Environment / Hard Surface</p>
+                        <h2>3D Models</h2>
+                    </div>
+                    <div class="gallery-collection-meta">
+                        <span class="gallery-collection-count">35 pieces</span>
+                        <a href="#Gallery" class="gallery-back-link">Back to top</a>
+                    </div>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Tree.png" alt="Tree" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Tree</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-8-7 Lantern Model.jpg" alt="Lantern Model" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Lantern Model</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/StarbucksCupRender.png" alt="Starbucks Cup" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Starbucks Cup</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Cartoon_Cabin_12-4-18.jpg" alt="Cartoon Cabin" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">Cartoon Cabin</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/TVDrone.png" alt="TV Drone" style="object-position: 50% 50%;" class="lightbox-trigger"></div><div class="caption">TV Drone</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/DropPod.png" alt="DropPod" class="lightbox-trigger"></div><div class="caption">DropPod</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/GoKart.png" alt="GoKart" class="lightbox-trigger"></div><div class="caption">GoKart</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Golem.png" alt="Golem" class="lightbox-trigger"></div><div class="caption">Golem</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Gun1.png" alt="Gun1" class="lightbox-trigger"></div><div class="caption">Gun1</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Gun2.png" alt="Gun2" class="lightbox-trigger"></div><div class="caption">Gun2</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Gun3.png" alt="Gun3" class="lightbox-trigger"></div><div class="caption">Gun3</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/HavenCity.png" alt="Haven City" class="lightbox-trigger"></div><div class="caption">Haven City</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/LandRoverRender.png" alt="Land Rover Render" class="lightbox-trigger"></div><div class="caption">Land Rover Render</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Lantern Render.png" alt="Lantern Render" class="lightbox-trigger"></div><div class="caption">Lantern Render</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/LogCabin0004.png" alt="Log Cabin" class="lightbox-trigger"></div><div class="caption">Log Cabin</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/LPDrummer.png" alt="LP Drummer" class="lightbox-trigger"></div><div class="caption">LP Drummer</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/M24.png" alt="M24" class="lightbox-trigger"></div><div class="caption">M24</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/NAT.png" alt="NAT" class="lightbox-trigger"></div><div class="caption">NAT</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/PowerCell.png" alt="Power Cell" class="lightbox-trigger"></div><div class="caption">Power Cell</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/QQJC3889.png" alt="QQJC3889" class="lightbox-trigger"></div><div class="caption">QQJC3889</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/RetroComputer.png" alt="Retro Computer" class="lightbox-trigger"></div><div class="caption">Retro Computer</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/RetroRocket.png" alt="Retro Rocket" class="lightbox-trigger"></div><div class="caption">Retro Rocket</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/SecurityCamera.png" alt="Security Camera" class="lightbox-trigger"></div><div class="caption">Security Camera</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/SentinalBeach.png" alt="Sentinal Beach" class="lightbox-trigger"></div><div class="caption">Sentinal Beach</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Set.png" alt="Set" class="lightbox-trigger"></div><div class="caption">Set</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/SST.png" alt="SST" class="lightbox-trigger"></div><div class="caption">SST</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/Starbucks.png" alt="Starbucks" class="lightbox-trigger"></div><div class="caption">Starbucks</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/StarbucksCupRender.png" alt="Starbucks Cup Render" class="lightbox-trigger"></div><div class="caption">Starbucks Cup Render</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/StyalizedPineTree.png" alt="Stylized Pine Tree" class="lightbox-trigger"></div><div class="caption">Stylized Pine Tree</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/TelephonePole.png" alt="Telephone Pole" class="lightbox-trigger"></div><div class="caption">Telephone Pole</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/WoodYouTurnIt.png" alt="Wood You Turn It" class="lightbox-trigger"></div><div class="caption">Wood You Turn It</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/ZoomerBike.png" alt="Zoomer Bike" class="lightbox-trigger"></div><div class="caption">Zoomer Bike</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/ZoomerCar.png" alt="Zoomer Car" class="lightbox-trigger"></div><div class="caption">Zoomer Car</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-4-17 Light Saber.png" alt="Light Saber" class="lightbox-trigger"></div><div class="caption">Light Saber</div></div>
+                    <div class="gallery-item"><div class="gallery-thumb-wrapper"><img src="Gallery/16-5-3 Buddy.png" alt="Buddy" class="lightbox-trigger"></div><div class="caption">Buddy</div></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="videoModal" class="video-modal" onclick="closeVideoModal()">
+        <div class="video-content" onclick="event.stopPropagation();">
+            <iframe id="videoFrame" width="800" height="450" frameborder="0" allowfullscreen></iframe>
+            <span class="close-button" onclick="closeVideoModal()">×</span>
+        </div>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Reticle" role="button">
+        <div class="bulb"></div>
+    </button>
+
+    <div class="reticle-toggle" onclick="toggleReticle()" title="Toggle Reticle" aria-label="Toggle Reticle" role="button">
+        <div class="reticle-icon">🎯</div>
+    </div>
+
+    <div id="enhanced-lightbox" class="lightbox" onclick="closeEnhancedLightbox()">
+        <div class="lightbox-inner" onclick="event.stopPropagation()">
+            <span class="close-lightbox" onclick="closeEnhancedLightbox()">×</span>
+            <img id="enhanced-lightbox-img" src="" alt="Preview" />
+            <div class="lightbox-controls">
+                <button onclick="showPrevImage()">⟵</button>
+                <button onclick="showNextImage()">⟶</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

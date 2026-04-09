@@ -1,6 +1,59 @@
 function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
         }
+
+        const experienceRolloverTimeZone = 'America/Los_Angeles';
+
+        function getRolloverDateParts(date = new Date()) {
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: experienceRolloverTimeZone,
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            });
+
+            const parts = formatter.formatToParts(date).reduce((accumulator, part) => {
+                if (part.type !== 'literal') {
+                    accumulator[part.type] = Number(part.value);
+                }
+
+                return accumulator;
+            }, {});
+
+            return {
+                year: parts.year,
+                month: parts.month,
+                day: parts.day
+            };
+        }
+
+        function syncRollingYearCounts(date = new Date()) {
+            const { year, month, day } = getRolloverDateParts(date);
+            const rolloverOffset = month === 12 && day === 31 ? 1 : 0;
+
+            document.querySelectorAll('.rolling-year-count').forEach((element) => {
+                const baseValue = Number(element.dataset.baseValue);
+                const baseYear = Number(element.dataset.baseYear);
+
+                if (!Number.isFinite(baseValue) || !Number.isFinite(baseYear)) {
+                    return;
+                }
+
+                const yearsToAdd = Math.max(0, year - baseYear + rolloverOffset);
+                element.textContent = `${baseValue + yearsToAdd}+`;
+            });
+        }
+
+        function focusProjectsTimelineOnRecentWork() {
+            const timelineScroll = document.querySelector('.projects-timeline-scroll');
+
+            if (!timelineScroll) {
+                return;
+            }
+
+            const maxScrollLeft = Math.max(0, timelineScroll.scrollWidth - timelineScroll.clientWidth);
+            timelineScroll.scrollLeft = maxScrollLeft;
+        }
         
         let lastScrollTop = 0;
         const header = document.querySelector('header');
@@ -302,90 +355,34 @@ function toggleDarkMode() {
         const projectRows = document.querySelectorAll('.projects-row');
         const projectDetails = document.querySelectorAll('.project-details');
 
-        let lockedRow = null;
-
-        function pinAndToggleRow(row, isClick = false) {
-            const startY = window.scrollY;
-            const rectBefore = row.getBoundingClientRect().top;
-
-            projectRows.forEach(r => r.classList.remove('active', 'hover-open'));
-
-            requestAnimationFrame(() => {
-                if (isClick) {
-                    row.classList.add('active');
-                    lockedRow = row;
-                } else if (!lockedRow) {
-                    row.classList.add('hover-open');
-                }
-
-                requestAnimationFrame(() => {
-                    const rectAfter = row.getBoundingClientRect().top;
-                    const scrollCorrection = rectAfter - rectBefore;
-                    window.scrollTo({
-                        top: startY + scrollCorrection,
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        }
-
-
-        // Attach listeners
         projectRows.forEach((row, index) => {
             const details = projectDetails[index];
+            const toggleButton = row.querySelector('.dropdown-toggle');
 
-            row.addEventListener('click', () => {
-                if (lockedRow === row) {
-                    // Collapse all rows and clear lock
-                    projectRows.forEach(r => r.classList.remove('active'));
-                    lockedRow = null;
-                } else {
-                    pinAndToggleRow(row, true);
-                }
-            });
-
-            /*
-            row.addEventListener('mouseenter', () => {
-                if (!lockedRow) pinAndToggleRow(row, false);
-            });
-
-            row.addEventListener('mouseleave', () => {
-                if (!lockedRow) row.classList.remove('hover-open');
-            });
-
-            details.addEventListener('mouseenter', () => {
-                if (!lockedRow) row.classList.add('hover-open');
-            });
-
-            details.addEventListener('mouseleave', () => {
-                if (!lockedRow) row.classList.remove('hover-open');
-            });
-            */
-        });
-
-        /*
-        // Close all on outside click
-        document.addEventListener('click', (e) => {
-            const inside = [...projectRows, ...projectDetails].some(el => el.contains(e.target));
-            if (!inside && lockedRow) {
-                lockedRow.classList.remove('active');
-                lockedRow = null;
+            if (!details || !toggleButton) {
+                return;
             }
-        });
-        */
 
-        function pinRowToScreen(targetRow, changingRows, callback) {
-            const rectBefore = targetRow.getBoundingClientRect();
-            const pinnedY = rectBefore.top;
+            if (!details.id) {
+                details.id = `project-details-${index + 1}`;
+            }
 
-            callback(); // Do the class toggles (open/close other rows)
+            function syncProjectToggleState() {
+                const isOpen = row.classList.contains('active');
+                toggleButton.textContent = isOpen ? 'Less Info ^' : 'More Info v';
+                toggleButton.setAttribute('aria-expanded', String(isOpen));
+                toggleButton.setAttribute('aria-controls', details.id);
+            }
 
-            requestAnimationFrame(() => {
-                const rectAfter = targetRow.getBoundingClientRect();
-                const dy = rectAfter.top - pinnedY;
-                window.scrollBy({ top: -dy, behavior: 'auto' });
+            syncProjectToggleState();
+
+            toggleButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                row.classList.toggle('active');
+                syncProjectToggleState();
             });
-        }
+        });
 
 
         // Automatically wrap video thumbnails and add overlay
@@ -407,44 +404,154 @@ function toggleDarkMode() {
         });
 
         let currentImageIndex = 0;
-        let imageSources = [];
+        let currentImageElements = [];
+        const supportsHoverPreview = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const projectLightboxSelector = '.project-details img.project-preview, .project-details img.project-inline-image';
 
-        function openEnhancedLightbox(index) {
-            imageSources = Array.from(document.querySelectorAll('.lightbox-trigger')).map(img => img.src);
-            currentImageIndex = index;
-            const lightbox = document.getElementById("enhanced-lightbox");
+        function isVisibleElement(element) {
+            return !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
+        }
+
+        function getLightboxGroup(trigger) {
+            const projectContainer = trigger.closest('.project-details');
+            if (projectContainer) {
+                return Array.from(projectContainer.querySelectorAll(projectLightboxSelector)).filter(isVisibleElement);
+            }
+
+            const groupName = trigger.dataset.lightboxGroup || 'gallery';
+            return Array.from(document.querySelectorAll(`.lightbox-trigger[data-lightbox-group="${groupName}"]`)).filter(isVisibleElement);
+        }
+
+        function setLightboxImage(index) {
+            if (!currentImageElements.length) {
+                return;
+            }
+
             const lightboxImg = document.getElementById("enhanced-lightbox-img");
-            lightboxImg.src = imageSources[index];
+            const activeImage = currentImageElements[index];
+            lightboxImg.src = activeImage.src;
+            lightboxImg.alt = activeImage.alt || "Preview";
+        }
+
+        function openEnhancedLightboxFromTrigger(trigger, options = {}) {
+            currentImageElements = getLightboxGroup(trigger);
+            currentImageIndex = Math.max(0, currentImageElements.indexOf(trigger));
+
+            const lightbox = document.getElementById("enhanced-lightbox");
+            lightbox.classList.toggle("hover-preview-mode", !!options.hoverPreview);
+
+            setLightboxImage(currentImageIndex);
             lightbox.classList.add("show");
         }
 
         function closeEnhancedLightbox() {
-            document.getElementById("enhanced-lightbox").classList.remove("show");
+            const lightbox = document.getElementById("enhanced-lightbox");
+            lightbox.classList.remove("show", "hover-preview-mode");
+        }
+
+        function closeHoverPreview() {
+            const lightbox = document.getElementById("enhanced-lightbox");
+            if (lightbox.classList.contains("hover-preview-mode")) {
+                lightbox.classList.remove("show", "hover-preview-mode");
+            }
         }
 
         function showPrevImage() {
-            currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
-            document.getElementById("enhanced-lightbox-img").src = imageSources[currentImageIndex];
+            if (!currentImageElements.length) {
+                return;
+            }
+
+            currentImageIndex = (currentImageIndex - 1 + currentImageElements.length) % currentImageElements.length;
+            setLightboxImage(currentImageIndex);
         }
 
         function showNextImage() {
-            currentImageIndex = (currentImageIndex + 1) % imageSources.length;
-            document.getElementById("enhanced-lightbox-img").src = imageSources[currentImageIndex];
+            if (!currentImageElements.length) {
+                return;
+            }
+
+            currentImageIndex = (currentImageIndex + 1) % currentImageElements.length;
+            setLightboxImage(currentImageIndex);
         }
 
         document.addEventListener("keydown", (e) => {
-            const isOpen = document.getElementById("enhanced-lightbox").classList.contains("show");
-            if (!isOpen) return;
+            const lightbox = document.getElementById("enhanced-lightbox");
+            const isOpen = lightbox.classList.contains("show");
+            const isHoverPreview = lightbox.classList.contains("hover-preview-mode");
+
+            if (!isOpen || isHoverPreview) return;
             if (e.key === "Escape") closeEnhancedLightbox();
             if (e.key === "ArrowLeft") showPrevImage();
             if (e.key === "ArrowRight") showNextImage();
         });
 
         document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('.lightbox-trigger').forEach((img, index) => {
+            syncRollingYearCounts();
+            requestAnimationFrame(focusProjectsTimelineOnRecentWork);
+
+            document.querySelectorAll('.lightbox-trigger').forEach((img) => {
+                if (!img.dataset.lightboxGroup) {
+                    const collectionGroup = img.closest('[data-lightbox-group]');
+                    img.dataset.lightboxGroup = collectionGroup ? collectionGroup.dataset.lightboxGroup : 'gallery';
+                }
+
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                img.tabIndex = 0;
+                img.setAttribute('role', 'button');
+                img.setAttribute('aria-label', `Open full-size preview for ${img.alt || 'gallery image'}`);
+
                 img.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    openEnhancedLightbox(index);
+                    openEnhancedLightboxFromTrigger(img);
                 });
+
+                img.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openEnhancedLightboxFromTrigger(img);
+                    }
+                });
+
+                if (supportsHoverPreview) {
+                    img.addEventListener('mouseenter', () => {
+                        openEnhancedLightboxFromTrigger(img, { hoverPreview: true });
+                    });
+
+                    img.addEventListener('mouseleave', () => {
+                        closeHoverPreview();
+                    });
+                }
+            });
+
+            document.querySelectorAll(projectLightboxSelector).forEach((img) => {
+                img.classList.add('project-lightbox-trigger');
+                img.tabIndex = 0;
+                img.setAttribute('role', 'button');
+                img.setAttribute('aria-label', `Open full-size preview for ${img.alt || 'project image'}`);
+
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openEnhancedLightboxFromTrigger(img);
+                });
+
+                img.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openEnhancedLightboxFromTrigger(img);
+                    }
+                });
+
+                if (supportsHoverPreview) {
+                    img.addEventListener('mouseenter', () => {
+                        openEnhancedLightboxFromTrigger(img, { hoverPreview: true });
+                    });
+
+                    img.addEventListener('mouseleave', () => {
+                        closeHoverPreview();
+                    });
+                }
             });
         });
+
+        window.addEventListener('load', focusProjectsTimelineOnRecentWork);
