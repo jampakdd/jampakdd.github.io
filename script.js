@@ -99,6 +99,28 @@ function toggleDarkMode() {
             modal.classList.remove('active');
         }
 
+        function openFeaturedProject(projectId) {
+            const archive = document.getElementById('experience-archive');
+            const target = document.getElementById(projectId);
+
+            if (!archive || !target) {
+                return;
+            }
+
+            archive.open = true;
+
+            if (!target.classList.contains('active')) {
+                const toggleButton = target.querySelector('.dropdown-toggle');
+                if (toggleButton) {
+                    toggleButton.click();
+                }
+            }
+
+            window.requestAnimationFrame(() => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+
         const reticle = document.querySelector('.reticle');
         let mouseX = 0;
         let mouseY = 0;
@@ -384,6 +406,29 @@ function toggleDarkMode() {
             });
         });
 
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+
+        if (mobileNavToggle && header) {
+            const closeMobileNavigation = () => {
+                header.classList.remove('nav-open');
+                mobileNavToggle.setAttribute('aria-expanded', 'false');
+            };
+
+            mobileNavToggle.addEventListener('click', () => {
+                const isOpen = header.classList.toggle('nav-open');
+                mobileNavToggle.setAttribute('aria-expanded', String(isOpen));
+            });
+
+            document.querySelectorAll('#primary-navigation a').forEach((link) => {
+                link.addEventListener('click', closeMobileNavigation);
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!header.contains(event.target)) {
+                    closeMobileNavigation();
+                }
+            });
+        }
 
         // Automatically wrap video thumbnails and add overlay
         document.querySelectorAll('.video-thumbnail').forEach(img => {

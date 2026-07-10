@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SDK Media</title>
+    <title>Skylar Kelley | Combat Designer &amp; Technical Game Developer</title>
     <link rel="icon" href="SDKMedia_Logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -55,38 +55,194 @@
             </div>
         </div>
 
+        <button class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+            <span class="mobile-nav-toggle-label">Menu</span>
+            <span class="mobile-nav-toggle-icon" aria-hidden="true"></span>
+        </button>
+
         <!-- Right: Navigation Links -->
-        <nav class="main-nav">
-            <a href="#Projects">Projects</a>
-            <a href="#DeveloperStats">Developer Stats</a>
+        <nav class="main-nav" id="primary-navigation">
+            <a href="#Projects">Selected Work</a>
+            <a href="#DeveloperStats">Profile</a>
+            <a href="Skylar Kelley Game Design Resume 2026 Spring.pdf" target="_blank">Resume</a>
             <a href="#Contact">Contact</a>
             <a href="gallery.html">Art Gallery</a>
+            <a href="https://assetstore.unity.com/publishers/25138" target="_blank" rel="noopener noreferrer">Unity Assets</a>
         </nav>
     </header>
 
     <main>
 
-        <!-- Combat Design Title Card -->
-        <div class="combat-title-card">
-            <h1 class="combat-title">Combat Designer &amp; Technical Game Developer</h1>
-            <p class="combat-subtitle">
-                <span class="rolling-year-count" data-base-value="5" data-base-year="2025">5+</span> years Combat Design |
-                <span class="rolling-year-count" data-base-value="8" data-base-year="2025">8+</span> years Game Design |
-                Camera, Character, Controls | Play Centric | Industry Leading Moment to Moment Gameplay | Prototyping + Playtesting + Iteration
-            </p>
-        </div>
+        <!-- Outcome-led portfolio hero -->
+        <section class="combat-title-card portfolio-hero" aria-labelledby="portfolio-title">
+            <div class="portfolio-hero-copy">
+                <p class="portfolio-eyebrow">Combat Designer &bull; Technical Game Developer</p>
+                <h1 class="combat-title" id="portfolio-title">Combat worth mastering.</h1>
+                <p class="combat-subtitle">
+                    I design and implement responsive 3Cs, weapons, abilities, enemies, and the feedback that makes every action land.
+                </p>
+                <div class="portfolio-hero-actions">
+                    <a class="portfolio-button portfolio-button--primary" href="#Projects">View selected work</a>
+                    <a class="portfolio-button portfolio-button--secondary" href="Skylar Kelley Game Design Resume 2026 Spring.pdf" target="_blank">Download resume</a>
+                </div>
+            </div>
+            <div class="portfolio-proof-strip" aria-label="Career highlights">
+                <div class="portfolio-proof">
+                    <strong><span class="rolling-year-count" data-base-value="5" data-base-year="2025">5+</span></strong>
+                    <span>Years combat design</span>
+                </div>
+                <div class="portfolio-proof">
+                    <strong>50+</strong>
+                    <span>Weapons &amp; variants</span>
+                </div>
+                <div class="portfolio-proof">
+                    <strong>50+</strong>
+                    <span>Mobs &amp; boss fights</span>
+                </div>
+                <div class="portfolio-proof">
+                    <strong>AAA + Indie</strong>
+                    <span>Shipped &amp; live development</span>
+                </div>
+            </div>
+        </section>
 
         <section id="Projects">
-            <h1>Projects</h1>
+            <div class="section-heading-block">
+                <p class="section-eyebrow">Selected Work</p>
+                <h1>Combat design in practice.</h1>
+                <p class="section-intro">Three projects that best show how I combine hands-on implementation, player-focused iteration, and combat ownership.</p>
+            </div>
+
+            <div class="featured-work-grid">
+                <article class="featured-work-card featured-work-card--legacy">
+                    <div class="featured-work-visual">
+                        <img src="LegacySteelAndSorcery/LegacySteelAndSorcery.png" alt="Legacy Steel and Sorcery combat artwork">
+                        <span class="featured-work-status">Shipped on Steam</span>
+                    </div>
+                    <div class="featured-work-content">
+                        <div class="featured-work-heading">
+                            <div class="featured-work-title-copy">
+                                <p class="featured-work-studio">Notorious Studios</p>
+                                <h2>Legacy: Steel &amp; Sorcery</h2>
+                                <p class="featured-work-role">Combat Designer</p>
+                            </div>
+                            <img class="featured-company-logo" src="Logos/Notorious_Logo.png" alt="Notorious Studios logo">
+                        </div>
+                        <p>Designed and implemented player-character combat across melee and ranged class kits, weapons, abilities, tools, and traps using Unreal Gameplay Ability System and Blueprints.</p>
+                        <ul class="featured-work-results">
+                            <li>Character-class combat for melee and ranged player characters</li>
+                            <li>Weapon systems, abilities, tools, traps, and supporting interactions</li>
+                            <li>Behavior Tree design and implementation; shipped <strong>50+</strong> mobs and a boss fight</li>
+                        </ul>
+                        <div class="featured-work-actions">
+                            <button class="portfolio-button portfolio-button--primary featured-project-link" type="button" onclick="openFeaturedProject('legacy-project')">More Info</button>
+                            <a class="featured-text-link" href="https://store.steampowered.com/app/2344320/Legacy_Steel__Sorcery/" target="_blank">View on Steam &nearr;</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="featured-work-card featured-work-card--odyssey">
+                    <div class="featured-work-visual">
+                        <img src="Odyssey/Odyssey_22-24.png" alt="Odyssey unannounced survival game artwork">
+                        <span class="featured-work-status">AAA Development</span>
+                    </div>
+                    <div class="featured-work-content">
+                        <div class="featured-work-heading">
+                            <div class="featured-work-title-copy">
+                                <p class="featured-work-studio">Activision Blizzard</p>
+                                <h2>Unannounced Survival Game — Odyssey</h2>
+                                <p class="featured-work-role">Combat Designer &amp; Gameplay Scripter</p>
+                            </div>
+                            <img class="featured-company-logo featured-company-logo--blizzard" src="Logos/Blizzard_Entertainment_Logo_2015.svg.png" alt="Blizzard Entertainment logo">
+                        </div>
+                        <p>Built designer-facing combat pipelines and tuned moment-to-moment gameplay in close collaboration with directors, engineers, and product owners.</p>
+                        <ul class="featured-work-results">
+                            <li><strong>30+</strong> weapons authored and shipped to the project</li>
+                            <li>Modular weapon and consumable authoring systems</li>
+                            <li>Playtest leadership, balance, prototyping, and iteration</li>
+                        </ul>
+                        <div class="featured-work-actions">
+                            <button class="portfolio-button portfolio-button--primary featured-project-link" type="button" onclick="openFeaturedProject('odyssey-project')">More Info</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="featured-work-card featured-work-card--fifa">
+                    <div class="featured-work-visual">
+                        <img src="Enver/FifaHeros_25-26.jpg" alt="FIFA Heroes promotional artwork">
+                        <span class="featured-work-status">Recent Production Work</span>
+                    </div>
+                    <div class="featured-work-content">
+                        <div class="featured-work-heading">
+                            <div class="featured-work-title-copy">
+                                <p class="featured-work-studio">Enver Studio</p>
+                                <h2>FIFA Heroes</h2>
+                                <p class="featured-work-role">Game Feel Designer / Engineer</p>
+                            </div>
+                            <img class="featured-company-logo" src="Logos/Enver_Logo.png" alt="Enver Studio logo">
+                        </div>
+                        <p>Delivered game feel, multiplayer match flow, and production features directly with product owners and C-suite stakeholders.</p>
+                        <ul class="featured-work-results">
+                            <li>Camera, character, controller, haptics, and shake tuning</li>
+                            <li><strong>2</strong> new game modes and networked match flows</li>
+                            <li>In-match social feature with core monetization integration, using earned or purchased emojis</li>
+                        </ul>
+                        <div class="featured-work-actions">
+                            <button class="portfolio-button portfolio-button--primary featured-project-link" type="button" onclick="openFeaturedProject('fifa-project')">More Info</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <details class="experience-archive" id="experience-archive">
+                <summary>
+                    <span>
+                        <span class="experience-archive-kicker">Complete Experience</span>
+                        <strong>View all 10 projects and detailed responsibilities</strong>
+                    </span>
+                    <span class="experience-archive-icon" aria-hidden="true"></span>
+                </summary>
             <div class="projects-table">
                 <!-- Projects entries go here -->
-                <!-- SDK Media -->
-                
                 <!-- Contracting -->
                 <!-- OTK -->
 
+                <!-- SDK Media -->
+                <div class="projects-row" id="sdk-media-project">
+                    <div class="exp-left stealth-project-visual">
+                        <img src="Logos/SDKMedia_Logo.png" alt="SDK Media logo">
+                        <span>Stealth / In Dev</span>
+                    </div>
+                    <div class="exp-middle">
+                        <div class="job-title">Game Designer &amp; Developer</div>
+                        <div><span class="company">SDK Media</span>: <span class="project">Stealth Project</span></div>
+                        <div class="blurb">Developing an unannounced game project.</div>
+                        <div class="platforms">Platforms: Unannounced</div>
+                        <a class="unity-assets-link" href="https://assetstore.unity.com/publishers/25138" target="_blank" rel="noopener noreferrer">
+                            <img src="Logos/1280px-Unity_Technologies_logo.svg.png" alt="Unity">
+                            View SDK Media Unity Assets
+                        </a>
+                        <div class="project-button-wrapper">
+                            <button class="dropdown-toggle" type="button">More Info ↓</button>
+                        </div>
+                    </div>
+                    <div class="exp-right">
+                        <div class="date">May. '25 - Present</div>
+                        <img src="Logos/SDKMedia_Logo.png" alt="SDK Media Logo">
+                    </div>
+                </div>
+                <div class="project-details">
+                    <div class="project-details-flex">
+                        <ul class="project-details-list">
+                            <h3 class="project-section-title">Development Status</h3>
+                            <li>Currently in active development. Project name, platforms, and additional details remain confidential.</li>
+                            <li><a href="https://assetstore.unity.com/publishers/25138" target="_blank" rel="noopener noreferrer">Browse SDK Media tools and assets on the Unity Asset Store.</a></li>
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- Enver Studio -->
-                <div class="projects-row">
+                <div class="projects-row" id="fifa-project">
                     <div class="exp-left">
                         <img src="Enver/FifaHeros_25-26.jpg" alt="FIFA Heroes">
                     </div>
@@ -182,7 +338,7 @@
                 </div>
 
                 <!-- Notorious Studios -->
-                <div class="projects-row">
+                <div class="projects-row" id="legacy-project">
                     <div class="video-thumbnail-wrapper">
                         <img src="LegacySteelAndSorcery/LegacySteelAndSorcery.png"
                              alt="Legacy Steel and Sorcery"
@@ -359,7 +515,7 @@
                 </div>
 
                 <!-- Activision Blizzard -->
-                <div class="projects-row">
+                <div class="projects-row" id="odyssey-project">
                     <div class="exp-left">
                         <img src="Odyssey/Odyssey_22-24.png" alt="Odyssey">
                     </div>
@@ -941,10 +1097,12 @@
                             <span class="projects-timeline-segment is-shipped" style="--left: 77.78%; --width: 9.03%; --lane: 0; --bar-color: #4ca5ff;" title="Legacy: Steel and Sorcery">Legacy</span>
                             <span class="projects-timeline-segment is-stealth" style="--left: 86.81%; --width: 1.39%; --lane: 1; --bar-color: #ff9c42;" title="Unannounced Multiplayer Puzzle Action">OTG</span>
                             <span class="projects-timeline-segment is-active" style="--left: 90.28%; --width: 4.17%; --lane: 2; --bar-color: #22b8b0;" title="FIFA Heroes">FIFA</span>
+                            <span class="projects-timeline-segment is-active" style="--left: 86.81%; --width: 12.50%; --lane: 3; --bar-color: #2d82b2;" title="SDK Media - Stealth Project">SDK Media — Stealth</span>
                         </div>
                     </div>
                 </div>
             </div>
+            </details>
         </section>
 
         <section id="DeveloperStats" class="combat-proof-section">
@@ -1035,6 +1193,18 @@
                             <p class="combat-stat-rank">Project / Studio / Status</p>
                         </div>
                         <div class="combat-studio-list">
+                            <div class="combat-studio-row">
+                                <div class="combat-studio-info">
+                                    <div class="combat-studio-icon">
+                                        <img src="Logos/SDKMedia_Logo.png" alt="SDK Media logo">
+                                    </div>
+                                    <div>
+                                        <div class="combat-studio-title">Stealth Project</div>
+                                        <div class="combat-studio-meta">SDK Media</div>
+                                    </div>
+                                </div>
+                                <span class="combat-studio-status is-active">In Dev</span>
+                            </div>
                             <div class="combat-studio-row">
                                 <div class="combat-studio-info">
                                     <div class="combat-studio-icon">
@@ -1164,8 +1334,8 @@
                         <ul class="combat-system-bullets">
                             <li><span class="combat-system-inline-stat">1P + 3P</span>Combat and ability systems</li>
                             <li><span class="combat-system-inline-stat">50+</span>Weapons and weapon variants</li>
-                            <li><span class="combat-system-inline-stat">Various</span>Character controllers plus advanced movement, climbing, sliding, and crawling</li>
-                            <li><span class="combat-system-inline-stat">Cars / Bikes</span>Cars, motorcycles, mounts, and hover bikes vehicle systems</li>
+                            <li><span class="combat-system-inline-stat">Various</span>Character controllers, paired animation systems, and advanced movement including climbing, sliding, and crawling</li>
+                            <li><span class="combat-system-inline-stat">Vehicles</span>Cars, motorcycles, boats, trains, mounts, and hover bikes vehicle systems</li>
                             <li><span class="combat-system-inline-stat">50+</span>Mobs and boss fights</li>
                         </ul>
                     </article>
@@ -1186,14 +1356,11 @@
                     <article class="combat-stat-card combat-stat-card--resume">
                         <div class="combat-stat-card-header">
                             <p class="combat-stat-kicker">Resume</p>
-                            <p class="combat-stat-rank">Spring 2026 PDF / ATS Copy</p>
+                            <p class="combat-stat-rank">Download Options</p>
                         </div>
                         <div class="combat-resume-actions">
                             <a href="Skylar Kelley Game Design Resume 2026 Spring.pdf" target="_blank" class="resume-link combat-resume-link">Download Resume (Spring 2026 PDF)</a>
                             <a href="Skylar_Kelley_ATS_Resume_2025_Fall.pdf" target="_blank" class="resume-link combat-resume-link">Download ATS Resume (PDF)</a>
-                        </div>
-                        <div class="combat-resume-viewer">
-                            <iframe src="Skylar Kelley Game Design Resume 2026 Spring.pdf" frameborder="0" title="Skylar Kelley Resume"></iframe>
                         </div>
                     </article>
                 </div>
