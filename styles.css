@@ -5992,7 +5992,7 @@ body.dark-mode .projects-timeline-bar.is-unreleased {
 }
 
 .projects-timeline {
-    margin: 0 auto 1.1rem;
+    margin: 1rem auto 0;
     border-color: var(--line-soft);
     background: rgba(255, 255, 255, 0.92);
     box-shadow: var(--shadow-soft);
